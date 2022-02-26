@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "retina",
+  "version": "${version}",
+
+  "name": "Retina",
+  "description": "[Redacted]",
+  "authors": [
+    "RetinaMC",
+    "IMS212",
+    "NoComment",
+    "AkashiiKun",
+    "chalkyjeans"
+  ],
+  "contact": {
+    "homepage": "https://github.com/RetinaMC/retina",
+    "issues": "https://github.com/RetinaMC/retina/issues"
+  },
+
+  "license": "LGPL-3,0",
+  "icon": "assets/retina/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "io.github.retinamc.retina.RetinaClient"
+    ]
+  },
+  "mixins": [
+    "retina.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.12.5",
+    "fabric": "*",
+    "minecraft": "1.18.x",
+    "java": ">=17"
+  }
+}

@@ -1,0 +1,115 @@
+//file:noinspection GroovyAssignabilityCheck
+plugins {
+	id 'fabric-loom' version '0.11.+'
+	id 'maven-publish'
+	id 'io.github.juuxel.loom-quiltflower' version '1.+'
+	id 'org.quiltmc.quilt-mappings-on-loom' version '4.+'
+}
+
+def targetJavaVersion = 17
+
+boolean dev = System.getenv('RELEASE') == null || System.getenv('RELEASE') == 'false'
+ext.buildnumber = System.getenv('GITHUB_RUN_NUMBER')
+project.buildnumber = System.getenv('BUILD_NUMBER') != null ? System.getenv('BUILD_NUMBER') : 'custom'
+
+archivesBaseName = project.archives_base_name
+version = "${project.mod_version}_${project.minecraft_version}" + (dev && buildnumber != 'custom' ? "+${buildnumber}" : '')
+group = project.maven_group
+
+repositories {
+	maven {	url = "https://maven.parchmentmc.org" }
+	maven { url = "https://maven.terraformersmc.com/" }
+	maven { url = "https://jitpack.io/" }
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	mappings loom.layered {
+		it.addLayer(quiltMappings.mappings("org.quiltmc:quilt-mappings:${minecraft_version}+build.${quilt_version}:v2"))
+		it.parchment("org.parchmentmc.data:parchment-1.18.1:${parchment_version}@zip")
+		it.officialMojangMappings {
+			setNameSyntheticMembers(false)
+		}
+	}
+
+	modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}")
+
+	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	implementation(include("com.google.code.findbugs:jsr305:${project.jsr305_version}"))
+
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+}
+
+loom {
+
+	sourceSets {
+		main {
+			resources {
+				srcDir("src/generated/resources")
+				exclude("src/generated/resources/.cache")
+			}
+		}
+	}
+
+	runs {
+		datagen {
+			client()
+
+			name "Data Generation"
+			vmArg "-Dfabric-api.datagen"
+			vmArg "-Dfabric-api.datagen.output-dir=${file("src/generated/resources")}"
+			vmArg "-Dfabric-api.datagen.modid=${project.archivesBaseName}"
+
+			property "${project.maven_group}.${project.archivesBaseName}.existingData", file("src/main/resources").absolutePath
+
+			runDir "build/datagen"
+		}
+	}
+}
+
+processResources {
+	inputs.property "version", project.version
+
+	filesMatching("fabric.mod.json") {
+		expand "version": project.version
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.encoding('UTF-8')
+	it.options.incremental(true)
+	it.options.deprecation(true)
+	it.options.release.set(targetJavaVersion)
+}
+
+java {
+	sourceCompatibility = JavaVersion.toVersion(targetJavaVersion)
+	targetCompatibility = JavaVersion.toVersion(targetJavaVersion)
+
+	withSourcesJar()
+}
+
+jar {
+	from("LICENSE") {
+		rename { "${it}_${project.archivesBaseName}"}
+	}
+}
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			from components.java
+		}
+	}
+
+	repositories {
+	}
+}
+
+quiltflower {
+	addToRuntimeClasspath.set(true)
+}
+
+runClient {
+	jvmArgs('-Dmixin.debug.export=true -client')
+}
