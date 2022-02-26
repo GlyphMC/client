@@ -32,7 +32,7 @@ dependencies {
 		}
 	}
 
-	modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}")
+	//modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}")
 
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	implementation(include("com.google.code.findbugs:jsr305:${project.jsr305_version}"))
