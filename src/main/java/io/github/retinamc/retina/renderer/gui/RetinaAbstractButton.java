@@ -1,11 +1,8 @@
 package io.github.retinamc.retina.renderer.gui;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 
-@Environment(EnvType.CLIENT)
 public abstract class RetinaAbstractButton extends RetinaAbstractWidget {
 
 	public RetinaAbstractButton(int i, int j, int k, int l, Component component) {

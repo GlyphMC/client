@@ -1,23 +1,19 @@
 package io.github.retinamc.retina.renderer.gui;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.narration.NarratedElementType;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
 
 import java.util.function.Consumer;
 
-@Environment(EnvType.CLIENT)
 public class RetinaButton extends RetinaAbstractButton {
 
 	public static final RetinaButton.OnTooltip NO_TOOLTIP = (button, matrices, mouseX, mouseY) -> {};
 	protected final RetinaButton.OnPress onPress;
 	protected final RetinaButton.OnTooltip onTooltip;
 
-	@Environment(EnvType.CLIENT)
-	public static interface OnTooltip {
+	public interface OnTooltip {
 		void onTooltip(RetinaButton param1Button, PoseStack param1PoseStack, int param1Int1, int param1Int2);
 
 		default void narrateTooltip(Consumer<Component> consumer) {}
@@ -59,8 +55,7 @@ public class RetinaButton extends RetinaAbstractButton {
 		this.onTooltip.narrateTooltip(text -> narrationElementOutput.add(NarratedElementType.HINT, text));
 	}
 
-	@Environment(EnvType.CLIENT)
-	public static interface OnPress {
+	public interface OnPress {
 		void onPress(RetinaButton param1Button);
 	}
 

@@ -3,8 +3,6 @@ package io.github.retinamc.retina.renderer.gui;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.retinamc.retina.RetinaClient;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -13,7 +11,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
-@Environment(EnvType.CLIENT)
 public abstract class RetinaAbstractWidget extends AbstractWidget {
 
 	public static final ResourceLocation WIDGETS_LOCATION = new ResourceLocation(RetinaClient.MOD_ID, "textures/gui/widgets.png");
