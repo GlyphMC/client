@@ -12,7 +12,7 @@ import java.time.OffsetDateTime;
 
 public class DiscordRPC {
 
-    public static void init() {
+	public static void init() {
 		IPCClient client = new IPCClient(947514926589693983L);
 		client.setListener(new IPCListener() {
 			@Override
@@ -20,16 +20,16 @@ public class DiscordRPC {
 				RichPresence.Builder builder = new RichPresence.Builder();
 				String version = Minecraft.getInstance().getGame().getVersion().getName();
 				builder.setState("Retina Client")
-					.setDetails("Playing Minecraft " + version)
-					.setStartTimestamp(OffsetDateTime.now())
-					.setLargeImage("retina", "Retina Client");
+						.setDetails("Playing Minecraft " + version)
+						.setStartTimestamp(OffsetDateTime.now())
+						.setLargeImage("retina", "Retina Client");
 				client.sendRichPresence(builder.build());
 			}
 		});
 		try {
 			client.connect(DiscordBuild.ANY);
 			RetinaClient.LOGGER.info("Connected to Discord");
-		} catch (NoDiscordClientException | RuntimeException e)  {
+		} catch (NoDiscordClientException | RuntimeException e) {
 			RetinaClient.LOGGER.info("No Discord Client found");
 		}
 	}

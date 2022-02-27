@@ -63,5 +63,5 @@ public class RetinaButton extends RetinaAbstractButton {
 	public static interface OnPress {
 		void onPress(RetinaButton param1Button);
 	}
-	
+
 }

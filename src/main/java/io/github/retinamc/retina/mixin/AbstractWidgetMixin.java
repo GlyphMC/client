@@ -8,5 +8,5 @@ import org.spongepowered.asm.mixin.Mixin;
 @Mixin(AbstractWidget.class)
 @Environment(EnvType.CLIENT)
 public class AbstractWidgetMixin {
-    
+
 }

@@ -1,17 +1,17 @@
 pluginManagement {
-    repositories {
-        maven {
-            name = 'FabricMC'
-            url = 'https://maven.fabricmc.net/'
+	repositories {
+		maven {
+			name = 'FabricMC'
+			url = 'https://maven.fabricmc.net/'
 		}
-        maven {
-            name = 'QuiltMC Release'
-            url = "https://maven.quiltmc.org/repository/release"
+		maven {
+			name = 'QuiltMC Release'
+			url = "https://maven.quiltmc.org/repository/release"
 		}
-        maven { 
-            name = 'Cotton'
-            url = 'https://server.bbkr.space/artifactory/libs-release/'
+		maven {
+			name = 'Cotton'
+			url = 'https://server.bbkr.space/artifactory/libs-release/'
 		}
-        gradlePluginPortal()
-    }
+		gradlePluginPortal()
+	}
 }
