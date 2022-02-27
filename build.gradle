@@ -20,6 +20,7 @@ repositories {
 	maven {	url = "https://maven.parchmentmc.org" }
 	maven { url = "https://maven.terraformersmc.com/" }
 	maven { url = "https://jitpack.io/" }
+	maven { url = "https://jcenter.bintray.com/" }
 }
 
 dependencies {
@@ -38,6 +39,8 @@ dependencies {
 	implementation(include("com.google.code.findbugs:jsr305:${project.jsr305_version}"))
 
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+	implementation "com.jagrosh:DiscordIPC:0.4"
 }
 
 loom {

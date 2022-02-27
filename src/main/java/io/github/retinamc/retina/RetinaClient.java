@@ -1,5 +1,6 @@
 package io.github.retinamc.retina;
 
+import io.github.retinamc.retina.rpc.DiscordRPC;
 import net.fabricmc.api.ClientModInitializer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,6 +12,7 @@ public class RetinaClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         LOGGER.info("Initialized");
+		DiscordRPC.init();
     }
 
 }
