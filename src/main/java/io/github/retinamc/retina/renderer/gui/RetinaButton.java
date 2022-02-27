@@ -10,10 +10,9 @@ import net.minecraft.network.chat.Component;
 import java.util.function.Consumer;
 
 @Environment(EnvType.CLIENT)
-public class RetinaButton extends RetinaAbstractButton{
-	public static final RetinaButton.OnTooltip NO_TOOLTIP = (button, matrices, mouseX, mouseY) -> {
+public class RetinaButton extends RetinaAbstractButton {
 
-	};
+	public static final RetinaButton.OnTooltip NO_TOOLTIP = (button, matrices, mouseX, mouseY) -> {};
 	protected final RetinaButton.OnPress onPress;
 	protected final RetinaButton.OnTooltip onTooltip;
 
@@ -64,4 +63,5 @@ public class RetinaButton extends RetinaAbstractButton{
 	public static interface OnPress {
 		void onPress(RetinaButton param1Button);
 	}
+	
 }
