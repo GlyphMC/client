@@ -20,6 +20,14 @@ repositories {
 	maven {	url = "https://maven.parchmentmc.org" }
 	maven { url = "https://maven.terraformersmc.com/" }
 	maven { url = "https://jitpack.io/" }
+	maven {
+		name = 'Ladysnake Mods'
+		url = 'https://ladysnake.jfrog.io/artifactory/mods'
+		content {
+			includeGroup 'io.github.ladysnake'
+			includeGroupByRegex 'io\\.github\\.onyxstudios.*'
+		}
+	}
 }
 
 dependencies {
@@ -32,6 +40,9 @@ dependencies {
 		}
 	}
 
+	modImplementation "io.github.ladysnake:satin:${satin_version}"
+	// Include Satin as a Jar-in-Jar dependency (optional)
+	include "io.github.ladysnake:satin:${satin_version}"
 	//modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}")
 
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
