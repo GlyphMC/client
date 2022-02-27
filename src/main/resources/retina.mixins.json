@@ -6,7 +6,8 @@
   "client": [
     "GuiComponentMixin",
     "MinecraftMixin",
-    "TitleScreenMixin"
+    "TitleScreenMixin",
+    "modules.damagetilt.BobHurtMixin"
   ],
   "injectors": {
     "defaultRequire": 1
