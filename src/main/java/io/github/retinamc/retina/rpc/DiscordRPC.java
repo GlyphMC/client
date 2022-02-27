@@ -29,7 +29,7 @@ public class DiscordRPC {
 		try {
 			client.connect(DiscordBuild.ANY);
 			RetinaClient.LOGGER.info("Connected to Discord");
-		} catch (NoDiscordClientException e) {
+		} catch (NoDiscordClientException | RuntimeException e)  {
 			RetinaClient.LOGGER.info("No Discord Client found");
 		}
 	}

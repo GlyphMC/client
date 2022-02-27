@@ -13,7 +13,7 @@ ext.buildnumber = System.getenv('GITHUB_RUN_NUMBER')
 project.buildnumber = System.getenv('BUILD_NUMBER') != null ? System.getenv('BUILD_NUMBER') : 'custom'
 
 archivesBaseName = project.archives_base_name
-version = "${project.mod_version}_${project.minecraft_version}" + (dev && buildnumber != 'custom' ? "+${buildnumber}" : '')
+version = "${project.mod_version}-${project.minecraft_version}" + (dev && buildnumber != 'custom' ? "+${buildnumber}" : '')
 group = project.maven_group
 
 repositories {
