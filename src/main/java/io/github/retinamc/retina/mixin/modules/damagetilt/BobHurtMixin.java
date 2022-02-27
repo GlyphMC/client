@@ -15,10 +15,6 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(GameRenderer.class)
 public class BobHurtMixin {
-	@Shadow
-	@Final
-	private Minecraft minecraft;
-
 	/**
 	 * @author Akashii_Kun
 	 */
