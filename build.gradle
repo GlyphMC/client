@@ -19,6 +19,7 @@ group = project.maven_group
 repositories {
 	maven {	url = "https://maven.parchmentmc.org" }
 	maven { url = "https://maven.terraformersmc.com/" }
+	mavenLocal()
 	maven { url = "https://jitpack.io/" }
 	maven {
 		name = 'Ladysnake Mods'
@@ -41,6 +42,7 @@ dependencies {
 	}
 
 	modImplementation "io.github.ladysnake:satin:${satin_version}"
+	modCompileOnly "io.github.ladysnake:blur:${satin_version}"
 	// Include Satin as a Jar-in-Jar dependency (optional)
 	include "io.github.ladysnake:satin:${satin_version}"
 	//modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}")

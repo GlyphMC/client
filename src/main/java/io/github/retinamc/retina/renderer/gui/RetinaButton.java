@@ -14,6 +14,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.narration.NarratedElementType;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.renderer.GameRenderer;
@@ -24,7 +25,7 @@ import java.util.function.Consumer;
 import java.util.function.IntSupplier;
 
 @Environment(EnvType.CLIENT)
-public class RetinaButton extends RetinaAbstractButton{
+public class RetinaButton extends RetinaAbstractButton {
 	public static final RetinaButton.OnTooltip NO_TOOLTIP = (button, matrices, mouseX, mouseY) -> {
 
 	};
@@ -191,7 +192,7 @@ public class RetinaButton extends RetinaAbstractButton{
 	}
 
 	@Environment(EnvType.CLIENT)
-	public static interface OnPress {
+	public interface OnPress {
 		void onPress(RetinaButton param1Button);
 	}
 }
