@@ -24,7 +24,7 @@ public class DiscordRPC {
 			}
 		});
 		try {
-			client.connect(DiscordBuild.STABLE, DiscordBuild.PTB, DiscordBuild.CANARY);
+			client.connect(DiscordBuild.ANY);
 			RetinaClient.LOGGER.info("Connected to Discord");
 		} catch (NoDiscordClientException e) {
 			RetinaClient.LOGGER.info("No Discord Client found");
