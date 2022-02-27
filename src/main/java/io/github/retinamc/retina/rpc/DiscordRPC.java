@@ -8,6 +8,8 @@ import com.jagrosh.discordipc.exceptions.NoDiscordClientException;
 import io.github.retinamc.retina.RetinaClient;
 import net.minecraft.client.Minecraft;
 
+import java.time.OffsetDateTime;
+
 public class DiscordRPC {
 
     public static void init() {
@@ -19,7 +21,8 @@ public class DiscordRPC {
 				String version = Minecraft.getInstance().getGame().getVersion().getName();
 				builder.setState("Retina Client")
 					.setDetails("Playing Minecraft " + version)
-					.setLargeImage("retina-client", "Retina Client");
+					.setStartTimestamp(OffsetDateTime.now())
+					.setLargeImage("retina", "Retina Client");
 				client.sendRichPresence(builder.build());
 			}
 		});
