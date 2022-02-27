@@ -40,6 +40,7 @@ public abstract class TitleScreenMixin extends Screen {
 	private void stopAccessibility(CallbackInfo ci) {
 		ci.cancel();
 
+		assert this.minecraft != null;
 		this.minecraft.setConnectedToRealms(false);
 		if (this.minecraft.options.realmsNotifications && this.realmsNotificationsScreen == null) {
 			this.realmsNotificationsScreen = new RealmsNotificationsScreen();
@@ -58,14 +59,13 @@ public abstract class TitleScreenMixin extends Screen {
 		RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
 		RenderSystem.setShaderTexture(0, new ResourceLocation(RetinaClient.MOD_ID, "textures/gui/background.png"));
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, alpha);
-		float f = 32.0F;
 		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
-		bufferBuilder.vertex(0.0, (double)this.height, 0.0).uv(0.0F, 1.0F + (float)0).color(160, 160, 160, 255).endVertex();
-		bufferBuilder.vertex((double)this.width, (double)this.height, 0.0)
+		bufferBuilder.vertex(0.0, this.height, 0.0).uv(0.0F, 1.0F + (float)0).color(160, 160, 160, 255).endVertex();
+		bufferBuilder.vertex(this.width, this.height, 0.0)
 			.uv(1.0F, 1.0F + (float)0)
 			.color(160, 160, 160, 255)
 			.endVertex();
-		bufferBuilder.vertex((double)this.width, 0.0, 0.0).uv(1.0F, (float)0).color(160, 160, 160, 255).endVertex();
+		bufferBuilder.vertex(this.width, 0.0, 0.0).uv(1.0F, (float)0).color(160, 160, 160, 255).endVertex();
 		bufferBuilder.vertex(0.0, 0.0, 0.0).uv(0.0F, (float)0).color(160, 160, 160, 255).endVertex();
 		tesselator.end();
 
