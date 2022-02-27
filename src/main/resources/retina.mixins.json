@@ -6,7 +6,8 @@
   "client": [
     "TitleScreenMixin",
     "AbstractWidgetMixin",
-    "MinecraftMixin"
+    "MinecraftMixin",
+    "GuiComponentMixin"
   ],
   "injectors": {
     "defaultRequire": 1
