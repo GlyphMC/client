@@ -4,10 +4,11 @@
   "package": "io.github.retinamc.retina.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "GuiComponentMixin",
-    "MinecraftMixin",
-    "TitleScreenMixin",
-    "modules.damagetilt.BobHurtMixin"
+    "modules.damagetilt.BobHurtMixin",
+    "ui.GuiComponentMixin",
+    "ui.MinecraftMixin",
+    "ui.TitleScreenMixin",
+    "ui.AbstractWidgetMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -1,4 +1,4 @@
-package io.github.retinamc.retina.mixin;
+package io.github.retinamc.retina.mixin.ui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;

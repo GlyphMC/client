@@ -1,4 +1,4 @@
-package io.github.retinamc.retina.mixin;
+package io.github.retinamc.retina.mixin.ui;
 
 import net.minecraft.client.Minecraft;
 import org.spongepowered.asm.mixin.Mixin;
