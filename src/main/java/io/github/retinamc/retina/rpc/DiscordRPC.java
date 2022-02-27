@@ -13,7 +13,7 @@ import java.time.OffsetDateTime;
 public class DiscordRPC {
 
     public static void init() {
-		IPCClient client = new IPCClient(947459441022885888L);
+		IPCClient client = new IPCClient(947514926589693983L);
 		client.setListener(new IPCListener() {
 			@Override
 			public void onReady(IPCClient client) {
