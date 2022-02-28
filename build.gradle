@@ -27,13 +27,13 @@ dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings loom.layered {
 		it.addLayer(quiltMappings.mappings("org.quiltmc:quilt-mappings:${minecraft_version}+build.${quilt_version}:v2"))
-		it.parchment("org.parchmentmc.data:parchment-1.18.1:${parchment_version}@zip")
+		// it.parchment("org.parchmentmc.data:parchment-1.18.1:${parchment_version}@zip")
 		it.officialMojangMappings {
 			setNameSyntheticMembers(false)
 		}
 	}
 
-	//modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}")
+	modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}")
 
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	implementation(include("com.google.code.findbugs:jsr305:${project.jsr305_version}"))
@@ -41,7 +41,7 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	implementation "com.jagrosh:DiscordIPC:0.4"
-	implementation 'com.kohlschutter.junixsocket:junixsocket-core:2.4.0'
+	implementation "com.kohlschutter.junixsocket:junixsocket-core:2.4.0"
 }
 
 loom {
