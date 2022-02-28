@@ -8,6 +8,8 @@ import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.realmsclient.gui.screens.RealmsNotificationsScreen;
 import io.github.retinamc.retina.RetinaClient;
+import net.minecraft.SharedConstants;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
@@ -34,6 +36,11 @@ public abstract class TitleScreenMixin extends Screen {
 
 	protected TitleScreenMixin(Component component) {
 		super(component);
+	}
+
+	@Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/TitleScreen;drawString(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/gui/Font;Ljava/lang/String;III)V", ordinal = 0))
+	private void retina$changeText(PoseStack poseStack, Font font, String string, int x, int y, int color) {
+		drawString(poseStack, font, "Retina Client (" + SharedConstants.getCurrentVersion().getName() + ")", x, y, color);
 	}
 
 	@Inject(method = "init", at = @At(value = "FIELD", target = "Lnet/minecraft/client/gui/screens/TitleScreen;ACCESSIBILITY_TEXTURE:Lnet/minecraft/resources/ResourceLocation;"), cancellable = true)
