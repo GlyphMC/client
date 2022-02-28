@@ -9,15 +9,10 @@ import java.util.function.Consumer;
 
 public class RetinaButton extends RetinaAbstractButton {
 
-	public static final RetinaButton.OnTooltip NO_TOOLTIP = (button, matrices, mouseX, mouseY) -> {};
+	public static final RetinaButton.OnTooltip NO_TOOLTIP = (button, matrices, mouseX, mouseY) -> {
+	};
 	protected final RetinaButton.OnPress onPress;
 	protected final RetinaButton.OnTooltip onTooltip;
-
-	public interface OnTooltip {
-		void onTooltip(RetinaButton param1Button, PoseStack param1PoseStack, int param1Int1, int param1Int2);
-
-		default void narrateTooltip(Consumer<Component> consumer) {}
-	}
 
 	public RetinaButton(int i, int j, int k, int l, Component component, RetinaButton.OnPress onPress) {
 		this(i, j, k, l, component, onPress, NO_TOOLTIP);
@@ -30,11 +25,9 @@ public class RetinaButton extends RetinaAbstractButton {
 		this.onTooltip = onTooltip;
 	}
 
-
 	public void onPress() {
 		this.onPress.onPress(this);
 	}
-
 
 	public void renderButton(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
 		super.renderButton(poseStack, mouseX, mouseY, partialTick);
@@ -44,15 +37,21 @@ public class RetinaButton extends RetinaAbstractButton {
 		}
 	}
 
-
 	public void renderToolTip(PoseStack poseStack, int relativeMouseX, int relativeMouseY) {
 		this.onTooltip.onTooltip(this, poseStack, relativeMouseX, relativeMouseY);
 	}
 
-
 	public void updateNarration(NarrationElementOutput narrationElementOutput) {
 		defaultButtonNarrationText(narrationElementOutput);
 		this.onTooltip.narrateTooltip(text -> narrationElementOutput.add(NarratedElementType.HINT, text));
+	}
+
+
+	public interface OnTooltip {
+		void onTooltip(RetinaButton param1Button, PoseStack param1PoseStack, int param1Int1, int param1Int2);
+
+		default void narrateTooltip(Consumer<Component> consumer) {
+		}
 	}
 
 	public interface OnPress {

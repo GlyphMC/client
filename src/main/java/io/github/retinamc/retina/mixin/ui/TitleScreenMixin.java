@@ -31,12 +31,12 @@ public abstract class TitleScreenMixin extends Screen {
 	@Shadow
 	private Screen realmsNotificationsScreen;
 
-	@Shadow
-	protected abstract boolean realmsNotificationsEnabled();
-
 	protected TitleScreenMixin(Component component) {
 		super(component);
 	}
+
+	@Shadow
+	protected abstract boolean realmsNotificationsEnabled();
 
 	@Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/TitleScreen;drawString(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/gui/Font;Ljava/lang/String;III)V", ordinal = 0))
 	private void retina$changeText(PoseStack poseStack, Font font, String string, int x, int y, int color) {
@@ -60,20 +60,19 @@ public abstract class TitleScreenMixin extends Screen {
 
 	@Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/PanoramaRenderer;render(FF)V"))
 	private void renderImage(PanoramaRenderer instance, float deltaT, float alpha) {
-		//RenderSystem.setShaderTexture(0, new ResourceLocation(RetinaClient.MOD_ID, "textures/gui/background.png"));
 		Tesselator tesselator = Tesselator.getInstance();
 		BufferBuilder bufferBuilder = tesselator.getBuilder();
 		RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
 		RenderSystem.setShaderTexture(0, new ResourceLocation(RetinaClient.MOD_ID, "textures/gui/background.png"));
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, alpha);
 		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
-		bufferBuilder.vertex(0.0, this.height, 0.0).uv(0.0F, 1.0F + (float)0).color(160, 160, 160, 255).endVertex();
+		bufferBuilder.vertex(0.0, this.height, 0.0).uv(0.0F, 1.0F + (float) 0).color(160, 160, 160, 255).endVertex();
 		bufferBuilder.vertex(this.width, this.height, 0.0)
-			.uv(1.0F, 1.0F + (float)0)
-			.color(160, 160, 160, 255)
-			.endVertex();
-		bufferBuilder.vertex(this.width, 0.0, 0.0).uv(1.0F, (float)0).color(160, 160, 160, 255).endVertex();
-		bufferBuilder.vertex(0.0, 0.0, 0.0).uv(0.0F, (float)0).color(160, 160, 160, 255).endVertex();
+				.uv(1.0F, 1.0F + (float) 0)
+				.color(160, 160, 160, 255)
+				.endVertex();
+		bufferBuilder.vertex(this.width, 0.0, 0.0).uv(1.0F, (float) 0).color(160, 160, 160, 255).endVertex();
+		bufferBuilder.vertex(0.0, 0.0, 0.0).uv(0.0F, (float) 0).color(160, 160, 160, 255).endVertex();
 		tesselator.end();
 
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
