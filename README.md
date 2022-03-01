@@ -1,2 +1,2 @@
-# retina
-Retina Client - open source, free, forever.
+# Tangent
+Tangent Client - open source, free, forever.
