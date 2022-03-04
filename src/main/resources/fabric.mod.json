@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "retina",
+  "id": "tangent",
   "version": "${version}",
 
-  "name": "Retina",
+  "name": "Tangent",
   "description": "[Redacted]",
   "authors": [
     "RetinaMC",
@@ -13,21 +13,21 @@
     "chalkyjeans"
   ],
   "contact": {
-    "homepage": "https://github.com/RetinaMC/retina",
-    "issues": "https://github.com/RetinaMC/retina/issues"
+    "homepage": "https://github.com/TangentMC/Tangent",
+    "issues": "https://github.com/TangentMC/Tangent/issues"
   },
 
   "license": "LGPL-3,0",
-  "icon": "assets/retina/icon.png",
+  "icon": "assets/tangent/icon.png",
 
   "environment": "client",
   "entrypoints": {
     "client": [
-      "io.github.retinamc.retina.RetinaClient"
+      "io.github.tangentmc.tangent.TangentClient"
     ]
   },
   "mixins": [
-    "retina.mixins.json"
+    "tangent.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.12.5",

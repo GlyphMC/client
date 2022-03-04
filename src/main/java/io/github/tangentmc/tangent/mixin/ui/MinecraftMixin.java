@@ -1,4 +1,4 @@
-package io.github.retinamc.retina.mixin.ui;
+package io.github.tangentmc.tangent.mixin.ui;
 
 import net.minecraft.client.Minecraft;
 import org.spongepowered.asm.mixin.Mixin;
@@ -13,6 +13,6 @@ public class MinecraftMixin {
 	 */
 	@ModifyArg(method = "createTitle", at = @At(value = "INVOKE", target = "Ljava/lang/StringBuilder;<init>(Ljava/lang/String;)V"))
 	public String retina$createTitle(String str) {
-		return "Retina Client ";
+		return "Tangent Client ";
 	}
 }

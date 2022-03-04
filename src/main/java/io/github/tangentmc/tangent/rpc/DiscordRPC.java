@@ -1,11 +1,11 @@
-package io.github.retinamc.retina.rpc;
+package io.github.tangentmc.tangent.rpc;
 
 import com.jagrosh.discordipc.IPCClient;
 import com.jagrosh.discordipc.IPCListener;
 import com.jagrosh.discordipc.entities.DiscordBuild;
 import com.jagrosh.discordipc.entities.RichPresence;
 import com.jagrosh.discordipc.exceptions.NoDiscordClientException;
-import io.github.retinamc.retina.RetinaClient;
+import io.github.tangentmc.tangent.TangentClient;
 import net.minecraft.client.Minecraft;
 
 import java.time.OffsetDateTime;
@@ -19,18 +19,18 @@ public class DiscordRPC {
 			public void onReady(IPCClient client) {
 				RichPresence.Builder builder = new RichPresence.Builder();
 				String version = Minecraft.getInstance().getGame().getVersion().getName();
-				builder.setState("Retina Client")
+				builder.setState("Tangent Client")
 						.setDetails("Playing Minecraft " + version)
 						.setStartTimestamp(OffsetDateTime.now())
-						.setLargeImage("retina", "Retina Client");
+						.setLargeImage("tangent", "Tangent Client");
 				client.sendRichPresence(builder.build());
 			}
 		});
 		try {
 			client.connect(DiscordBuild.ANY);
-			RetinaClient.LOGGER.info("Connected to Discord");
+			TangentClient.LOGGER.info("Connected to Discord");
 		} catch (NoDiscordClientException | RuntimeException e) {
-			RetinaClient.LOGGER.info("No Discord Client found");
+			TangentClient.LOGGER.info("No Discord Client found");
 		}
 	}
 

@@ -1,16 +1,16 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "io.github.retinamc.retina.mixin",
+  "package": "io.github.tangentmc.tangent.mixin",
   "compatibilityLevel": "JAVA_17",
-  "client": [
-    "modules.damagetilt.BobHurtMixin",
-    "ui.GuiComponentMixin",
-    "ui.MinecraftMixin",
-    "ui.TitleScreenMixin",
-    "ui.AbstractWidgetMixin"
-  ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "client": [
+    "modules.damagetilt.BobHurtMixin",
+    "ui.AbstractWidgetMixin",
+    "ui.GuiComponentMixin",
+    "ui.MinecraftMixin",
+    "ui.TitleScreenMixin"
+  ]
 }
