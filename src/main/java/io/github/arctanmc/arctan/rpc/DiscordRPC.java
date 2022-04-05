@@ -1,13 +1,14 @@
-package io.github.tangentmc.tangent.rpc;
+package io.github.arctanmc.arctan.rpc;
 
 import com.jagrosh.discordipc.IPCClient;
 import com.jagrosh.discordipc.IPCListener;
 import com.jagrosh.discordipc.entities.DiscordBuild;
 import com.jagrosh.discordipc.entities.RichPresence;
 import com.jagrosh.discordipc.exceptions.NoDiscordClientException;
-import io.github.tangentmc.tangent.TangentClient;
+import io.github.arctanmc.arctan.ArctanClient;
 import net.minecraft.client.Minecraft;
 
+import java.lang.invoke.MethodHandles;
 import java.time.OffsetDateTime;
 
 public class DiscordRPC {
@@ -19,18 +20,18 @@ public class DiscordRPC {
 			public void onReady(IPCClient client) {
 				RichPresence.Builder builder = new RichPresence.Builder();
 				String version = Minecraft.getInstance().getGame().getVersion().getName();
-				builder.setState("Tangent Client")
+				builder.setState("Arctan Client")
 						.setDetails("Playing Minecraft " + version)
 						.setStartTimestamp(OffsetDateTime.now())
-						.setLargeImage("tangent", "Tangent Client");
+						.setLargeImage("arctan", "Arctan Client");
 				client.sendRichPresence(builder.build());
 			}
 		});
 		try {
 			client.connect(DiscordBuild.ANY);
-			TangentClient.LOGGER.info("Connected to Discord");
+			ArctanClient.LOGGER.info("Connected to Discord");
 		} catch (NoDiscordClientException | RuntimeException e) {
-			TangentClient.LOGGER.info("No Discord Client found");
+			ArctanClient.LOGGER.info("No Discord Client found");
 		}
 	}
 

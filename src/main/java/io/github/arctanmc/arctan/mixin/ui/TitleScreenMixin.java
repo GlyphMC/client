@@ -1,4 +1,4 @@
-package io.github.tangentmc.tangent.mixin.ui;
+package io.github.arctanmc.arctan.mixin.ui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
@@ -7,7 +7,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.realmsclient.gui.screens.RealmsNotificationsScreen;
-import io.github.tangentmc.tangent.TangentClient;
+import io.github.arctanmc.arctan.ArctanClient;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -39,8 +39,8 @@ public abstract class TitleScreenMixin extends Screen {
 	protected abstract boolean realmsNotificationsEnabled();
 
 	@Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/TitleScreen;drawString(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/gui/Font;Ljava/lang/String;III)V", ordinal = 0))
-	private void tangent$changeText(PoseStack poseStack, Font font, String string, int x, int y, int color) {
-		drawString(poseStack, font, "Tangent Client (" + SharedConstants.getCurrentVersion().getName() + ")", x, y, color);
+	private void arctan$changeText(PoseStack poseStack, Font font, String string, int x, int y, int color) {
+		drawString(poseStack, font, "Arctan Client (" + SharedConstants.getCurrentVersion().getName() + ")", x, y, color);
 	}
 
 	@Inject(method = "init", at = @At(value = "FIELD", target = "Lnet/minecraft/client/gui/screens/TitleScreen;ACCESSIBILITY_TEXTURE:Lnet/minecraft/resources/ResourceLocation;"), cancellable = true)
@@ -63,7 +63,7 @@ public abstract class TitleScreenMixin extends Screen {
 		Tesselator tesselator = Tesselator.getInstance();
 		BufferBuilder bufferBuilder = tesselator.getBuilder();
 		RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
-		RenderSystem.setShaderTexture(0, new ResourceLocation(TangentClient.MOD_ID, "textures/gui/background.png"));
+		RenderSystem.setShaderTexture(0, new ResourceLocation(ArctanClient.MOD_ID, "textures/gui/background.png"));
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, alpha);
 		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
 		bufferBuilder.vertex(0.0, this.height, 0.0).uv(0.0F, 1.0F + (float) 0).color(160, 160, 160, 255).endVertex();

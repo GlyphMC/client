@@ -1,2 +1,2 @@
-# Tangent
-Tangent Client - open source, free, forever.
+# Arctan
+Arctan Client - open source, free, forever.

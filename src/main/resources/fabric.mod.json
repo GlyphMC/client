@@ -1,20 +1,20 @@
 {
   "schemaVersion": 1,
-  "id": "tangent",
+  "id": "arctan",
   "version": "${version}",
 
-  "name": "Tangent",
+  "name": "Arctan",
   "description": "[Redacted]",
   "authors": [
-    "RetinaMC",
+    "ArctanMC",
     "IMS212",
     "NoComment",
     "AkashiiKun",
     "chalkyjeans"
   ],
   "contact": {
-    "homepage": "https://github.com/TangentMC/Tangent",
-    "issues": "https://github.com/TangentMC/Tangent/issues"
+    "homepage": "https://github.com/ArctanMC/Arctan",
+    "issues": "https://github.com/ArctanMC/Arctan/issues"
   },
 
   "license": "LGPL-3,0",
@@ -23,11 +23,11 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "io.github.tangentmc.tangent.TangentClient"
+      "io.github.arctanmc.arctan.ArctanClient"
     ]
   },
   "mixins": [
-    "tangent.mixins.json"
+    "arctan.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.12.5",
