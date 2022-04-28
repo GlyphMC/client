@@ -40,7 +40,7 @@ dependencies {
 
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	implementation "com.jagrosh:DiscordIPC:0.4"
+	implementation 'com.github.JnCrMx:discord-game-sdk4j:v0.5.5'
 	implementation "com.kohlschutter.junixsocket:junixsocket-core:2.4.0"
 }
 
