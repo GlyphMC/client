@@ -9,10 +9,10 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public class MinecraftMixin {
 
 	/*
-	 * This mixin is for changing the window title prefix from "Minecraft* <version>" to "Retina Client * <version>"
+	 * This mixin is for changing the window title prefix from "Minecraft* <version>" to "Arctan Client * <version>"
 	 */
 	@ModifyArg(method = "createTitle", at = @At(value = "INVOKE", target = "Ljava/lang/StringBuilder;<init>(Ljava/lang/String;)V"))
-	public String retina$createTitle(String str) {
+	public String arctan$createTitle(String str) {
 		return "Arctan Client ";
 	}
 }
