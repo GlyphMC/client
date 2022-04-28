@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "quilt_loader": {
+    "group": "io.github.arctanmc",
+    "id": "arctan",
+    "version": "${version}",
+    "metadata": {
+      "name": "Arctan",
+      "description": "[Redacted]",
+      "contributors": {
+        "ArctanMC": "Owner",
+        "IMS212": "Contributor",
+        "NoComment1105": "Contributor",
+        "AkashiiKun":  "Contributor",
+        "chalkyjeans": "Contributor"
+      },
+      "contact": {
+        "homepage": "https://github.com/ArctanMC/Arctan",
+        "issues": "https://github.com/ArctanMC/Arctan/issues",
+        "sources": "https://github.com/ArctanMC/Arctan/"
+      },
+      "license": "LGPL-3.0",
+      "icon": "assets/arctan/icon.png"
+    },
+    "intermediate_mappings": "net.fabricmc:intermediary",
+    "entrypoints": {
+      "client_init": "io.github.arctanmc.arctan.ArctanClient"
+    },
+    "depends": [
+      "quilt_loader",
+      "quilted_fabric_api"
+    ]
+  },
+  "mixin": [
+    "arctan.mixins.json"
+  ]
+}

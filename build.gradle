@@ -1,9 +1,8 @@
 //file:noinspection GroovyAssignabilityCheck
 plugins {
-	id 'fabric-loom' version '0.11.+'
+	id 'org.quiltmc.loom' version '0.12.+'
+	id 'org.quiltmc.gradle.licenser' version '1.+'
 	id 'maven-publish'
-	id 'io.github.juuxel.loom-quiltflower' version '1.+'
-	id 'org.quiltmc.quilt-mappings-on-loom' version '4.+'
 }
 
 def targetJavaVersion = 17
@@ -27,25 +26,24 @@ dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings loom.layered {
 		it.addLayer(quiltMappings.mappings("org.quiltmc:quilt-mappings:${minecraft_version}+build.${quilt_version}:v2"))
-		// it.parchment("org.parchmentmc.data:parchment-1.18.1:${parchment_version}@zip")
 		it.officialMojangMappings {
 			setNameSyntheticMembers(false)
 		}
 	}
 
-	modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}")
+	modImplementation "org.quiltmc:quilt-loader:${project.loader_version}"
 
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-	implementation(include("com.google.code.findbugs:jsr305:${project.jsr305_version}"))
+	modImplementation "org.quiltmc.quilted-fabric-api:quilted-fabric-api:${project.qfapi_version}"
 
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}") {
+		transitive(false)
+	}
 
 	implementation "com.jagrosh:DiscordIPC:0.4"
 	implementation "com.kohlschutter.junixsocket:junixsocket-core:2.4.0"
 }
 
 loom {
-
 	sourceSets {
 		main {
 			resources {
@@ -74,12 +72,12 @@ loom {
 processResources {
 	inputs.property "version", project.version
 
-	filesMatching("fabric.mod.json") {
+	filesMatching("quilt.mod.json") {
 		expand "version": project.version
 	}
 }
 
-tasks.withType(JavaCompile).configureEach {
+tasks.withType(JavaCompile).forEach {
 	it.options.encoding('UTF-8')
 	it.options.incremental(true)
 	it.options.deprecation(true)
@@ -97,6 +95,11 @@ jar {
 	from("LICENSE") {
 		rename { "${it}_${project.archivesBaseName}" }
 	}
+}
+
+license {
+	rule file('HEADER')
+	include '**/*.java'
 }
 
 publishing {
