@@ -8,10 +8,8 @@ pluginManagement {
 			name = 'QuiltMC Release'
 			url = "https://maven.quiltmc.org/repository/release"
 		}
-		maven {
-			name = 'Cotton'
-			url = 'https://server.bbkr.space/artifactory/libs-release/'
-		}
 		gradlePluginPortal()
 	}
 }
+
+rootProject.name = "Arctan"
