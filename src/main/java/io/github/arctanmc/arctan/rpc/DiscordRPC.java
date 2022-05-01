@@ -25,26 +25,24 @@ import com.jagrosh.discordipc.exceptions.NoDiscordClientException;
 import io.github.arctanmc.arctan.ArctanClient;
 import net.minecraft.client.Minecraft;
 
-import java.lang.invoke.MethodHandles;
 import java.time.OffsetDateTime;
 
 public class DiscordRPC {
 
 	public static void init() {
-		IPCClient client = new IPCClient(947514926589693983L);
-		client.setListener(new IPCListener() {
-			@Override
-			public void onReady(IPCClient client) {
-				RichPresence.Builder builder = new RichPresence.Builder();
-				String version = Minecraft.getInstance().getGame().getVersion().getName();
-				builder.setState("Arctan Client")
-						.setDetails("Playing Minecraft " + version)
-						.setStartTimestamp(OffsetDateTime.now())
-						.setLargeImage("arctan", "Arctan Client");
-				client.sendRichPresence(builder.build());
-			}
-		});
-		try {
+		try (IPCClient client = new IPCClient(947514926589693983L)) {
+			client.setListener(new IPCListener() {
+				@Override
+				public void onReady(IPCClient client) {
+					RichPresence.Builder builder = new RichPresence.Builder();
+					String version = Minecraft.getInstance().getGame().getVersion().getName();
+					builder.setState("Arctan Client")
+							.setDetails("Playing Minecraft " + version)
+							.setStartTimestamp(OffsetDateTime.now())
+							.setLargeImage("arctan", "Arctan Client");
+					client.sendRichPresence(builder.build());
+				}
+			});
 			client.connect(DiscordBuild.ANY);
 			ArctanClient.LOGGER.info("Connected to Discord");
 		} catch (NoDiscordClientException | RuntimeException e) {
