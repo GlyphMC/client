@@ -6,6 +6,7 @@
   "mixins": [],
   "client": [
     "modules.damagetilt.BobHurtMixin",
+    "modules.discord.GameSDKMixin",
     "ui.AbstractWidgetMixin",
     "ui.GuiComponentMixin",
     "ui.MinecraftMixin",

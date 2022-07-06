@@ -8,9 +8,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Minecraft.class)
-public class MinecraftMixin {
+public class GameSDKMixin {
 	@Inject(method = "runTick", at = @At("TAIL"))
 	private void runCallbacks(boolean tick, CallbackInfo ci) {
-		DiscordRPC.core.runCallbacks();
+		DiscordRPC.getCore().runCallbacks();
 	}
+
 }
