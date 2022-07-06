@@ -11,16 +11,14 @@ import net.minecraft.SharedConstants;
 
 import java.io.IOException;
 import java.time.Instant;
-import java.util.UUID;
 
 public class DiscordRPC {
 
 	private static Core core;
+	private static final Instant time = Instant.now();
 
 	public static void init() throws IOException {
 		Core.initDownload();
-		String partyId = UUID.randomUUID().toString();
-		String secret = UUID.randomUUID().toString();
 		CreateParams params = new CreateParams();
 		params.setClientID(ArctanClient.CLIENT_ID);
 		params.setFlags(CreateParams.getDefaultFlags());
@@ -67,18 +65,33 @@ public class DiscordRPC {
 		} catch (Exception e) {
 			ArctanClient.LOGGER.error("Failed to initialize Rich Presence", e);
 		}
-		Activity activity = new Activity();
-		activity.setDetails("Playing Minecraft " + SharedConstants.getCurrentVersion().getName());
-		activity.setState("Arctan Client");
-		activity.timestamps().setStart(Instant.now());
-		activity.assets().setLargeImage("arctan_client");
-		activity.party().setID(partyId);
-		activity.secrets().setJoinSecret(secret);
-		core.activityManager().updateActivity(activity);
+		updateActivity("In the Menu", null, null);
 	}
 
 	public static Core getCore() {
 		return core;
+	}
+
+	public static void updateActivity(String state, String partyId, String secret) {
+		Activity activity = new Activity();
+		activity.setDetails("Playing Minecraft " + SharedConstants.getCurrentVersion().getName());
+		activity.setState(state);
+		activity.timestamps().setStart(time);
+		activity.assets().setLargeImage("arctan_client");
+		if (partyId != null) {
+			activity.party().setID(partyId);
+		}
+		if (secret != null) {
+			activity.secrets().setJoinSecret(secret);
+		}
+		core.activityManager().updateActivity(activity, result -> {
+			switch (result) {
+				// TODO handle errors
+				case OK -> {
+					ArctanClient.LOGGER.info("Updated Rich Presence");
+				}
+			}
+		});
 	}
 
 }

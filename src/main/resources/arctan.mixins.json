@@ -3,9 +3,12 @@
   "minVersion": "0.8",
   "package": "io.github.arctanmc.arctan.mixin",
   "compatibilityLevel": "JAVA_17",
-  "mixins": [],
+  "mixins": [
+    "modules.discord.ServerLevelMixin"
+  ],
   "client": [
     "modules.damagetilt.BobHurtMixin",
+    "modules.discord.ClientLevelMixin",
     "modules.discord.GameSDKMixin",
     "ui.AbstractWidgetMixin",
     "ui.GuiComponentMixin",
