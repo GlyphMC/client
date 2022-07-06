@@ -1,6 +1,8 @@
 package io.github.arctanmc.arctan.mixin.modules.discord;
 
 import io.github.arctanmc.arctan.rpc.DiscordRPC;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -15,15 +17,12 @@ import java.util.List;
 import java.util.UUID;
 
 @Mixin(ServerLevel.class)
+@Environment(EnvType.CLIENT)
 public class ServerLevelMixin {
 
 	@Shadow
 	@Final
 	List<ServerPlayer> players;
-
-	@Shadow
-	@Final
-	private MinecraftServer server;
 
 	@Inject(method = "addPlayer", at = @At("HEAD"))
 	public void addPlayer(ServerPlayer player, CallbackInfo ci) {
