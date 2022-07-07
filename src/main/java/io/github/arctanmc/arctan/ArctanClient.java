@@ -17,19 +17,25 @@
 
 package io.github.arctanmc.arctan;
 
-import io.github.arctanmc.arctan.rpc.DiscordRPC;
+import io.github.arctanmc.arctan.config.ArctanConfig;
+import io.github.arctanmc.arctan.module.Module;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.quiltmc.loader.api.ModContainer;
+import org.quiltmc.loader.api.QuiltLoader;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
 
 public class ArctanClient implements ClientModInitializer {
 	public static final String MOD_ID = "arctan";
 	public static final Logger LOGGER = LogManager.getLogger("ArctanClient");
 
+	public static final ArctanConfig CONFIG = ArctanConfig.load(QuiltLoader.getConfigDir().resolve(MOD_ID+ ".json"));
+	public static final boolean DEBUG = QuiltLoader.isDevelopmentEnvironment();
+ 
 	@Override
 	public void onInitializeClient(ModContainer mod) {
+		Module.loadAll();
 		LOGGER.info("Initialized");
-		DiscordRPC.init();
 	}
 }
