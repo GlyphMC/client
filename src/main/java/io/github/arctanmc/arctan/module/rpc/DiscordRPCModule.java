@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.github.arctanmc.arctan.rpc;
+package io.github.arctanmc.arctan.module.rpc;
 
 import com.jagrosh.discordipc.IPCClient;
 import com.jagrosh.discordipc.IPCListener;
@@ -23,15 +23,22 @@ import com.jagrosh.discordipc.entities.DiscordBuild;
 import com.jagrosh.discordipc.entities.RichPresence;
 import com.jagrosh.discordipc.exceptions.NoDiscordClientException;
 import io.github.arctanmc.arctan.ArctanClient;
+import io.github.arctanmc.arctan.module.SimpleModule;
 import net.minecraft.client.Minecraft;
 
-import java.lang.invoke.MethodHandles;
 import java.time.OffsetDateTime;
 
-public class DiscordRPC {
+public class DiscordRPCModule extends SimpleModule {
+	private IPCClient client;
 
-	public static void init() {
-		IPCClient client = new IPCClient(947514926589693983L);
+	public DiscordRPCModule() {
+		super("rpc");
+	}
+
+	@Override
+	public void onEnable() {
+		client = new IPCClient(947514926589693983L);
+
 		client.setListener(new IPCListener() {
 			@Override
 			public void onReady(IPCClient client) {
@@ -44,12 +51,22 @@ public class DiscordRPC {
 				client.sendRichPresence(builder.build());
 			}
 		});
+
 		try {
 			client.connect(DiscordBuild.ANY);
 			ArctanClient.LOGGER.info("Connected to Discord");
 		} catch (NoDiscordClientException | RuntimeException e) {
 			ArctanClient.LOGGER.info("No Discord Client found");
 		}
+
+		super.onEnable();
 	}
 
+	@Override
+	public void onDisable() {
+		client.close();
+		client = null;
+
+		super.onDisable();
+	}
 }

@@ -25,13 +25,20 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
+import io.github.arctanmc.arctan.module.Module;
+
 @Mixin(GameRenderer.class)
 public class BobHurtMixin {
 	/**
 	 * @author Akashii_Kun
+	 * @author Maximumpower55
 	 */
 	@Redirect(method = "bobHurt", at = @At(value = "FIELD", target = "Lnet/minecraft/world/entity/LivingEntity;hurtDir:F"))
 	private float editHurtDirection(LivingEntity entity) {
-		return (float) (Mth.atan2(Mth.lerp(Minecraft.getInstance().getFrameTime(), entity.zo - entity.getZ(), entity.getZ()), Mth.lerp(Minecraft.getInstance().getFrameTime(), entity.xo - entity.getX(), entity.getX())) * (180D / Math.PI) - (double) entity.getYRot());
+		if (Module.DAMAGETILT.isEnabled()) {
+			return (float) (Mth.atan2(Mth.lerp(Minecraft.getInstance().getFrameTime(), entity.zo - entity.getZ(), entity.getZ()), Mth.lerp(Minecraft.getInstance().getFrameTime(), entity.xo - entity.getX(), entity.getX())) * (180D / Math.PI) - (double) entity.getYRot());
+		}
+
+		return entity.hurtDir;
 	}
 }
