@@ -65,7 +65,7 @@ public abstract class TitleScreenMixin extends Screen {
 
 		assert this.minecraft != null;
 		this.minecraft.setConnectedToRealms(false);
-		if (this.minecraft.options.realmsNotifications && this.realmsNotificationsScreen == null) {
+		if (this.minecraft.options.realmsNotifications().get() && this.realmsNotificationsScreen == null) {
 			this.realmsNotificationsScreen = new RealmsNotificationsScreen();
 		}
 
