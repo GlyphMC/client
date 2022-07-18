@@ -1,9 +1,12 @@
 package io.github.arctanmc.arctan.rpc;
 
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
 import de.jcm.discordgamesdk.Core;
 import de.jcm.discordgamesdk.CreateParams;
 import de.jcm.discordgamesdk.DiscordEventAdapter;
 import de.jcm.discordgamesdk.activity.Activity;
+import de.jcm.discordgamesdk.activity.ActivityPartySize;
 import de.jcm.discordgamesdk.user.DiscordUser;
 import de.jcm.discordgamesdk.user.Relationship;
 import io.github.arctanmc.arctan.ArctanClient;
@@ -11,11 +14,17 @@ import net.minecraft.SharedConstants;
 
 import java.io.IOException;
 import java.time.Instant;
+import java.util.concurrent.TimeUnit;
+
+import static io.github.arctanmc.arctan.rpc.RPCUtils.*;
 
 public class DiscordRPC {
 
 	private static Core core;
-	private static final Instant time = Instant.now();
+	private static final Instant INSTANT = Instant.now();
+	private static final Cache<Long, String> CACHE = Caffeine.newBuilder()
+			.expireAfterWrite(30, TimeUnit.MINUTES)
+			.build();
 
 	public static void init() throws IOException {
 		Core.initDownload();
@@ -26,12 +35,12 @@ public class DiscordRPC {
 			// These are the events that I think we will need to handle.
 			@Override
 			public void onActivityJoin(String secret) {
-				super.onActivityJoin(secret);
+				ActivityJoinHandler.handle(CACHE, secret);
 			}
 
 			@Override
 			public void onActivityJoinRequest(DiscordUser user) {
-				ArctanClient.LOGGER.info("Join request from " + user.getDiscriminator());
+				ActivityJoinRequestHandler.handle(user);
 			}
 
 			@Override
@@ -76,13 +85,18 @@ public class DiscordRPC {
 		Activity activity = new Activity();
 		activity.setDetails("Playing Minecraft " + SharedConstants.getCurrentVersion().getName());
 		activity.setState(state);
-		activity.timestamps().setStart(time);
+		activity.timestamps().setStart(INSTANT);
 		activity.assets().setLargeImage("arctan_client");
 		if (partyId != null) {
 			activity.party().setID(partyId);
 		}
 		if (secret != null) {
 			activity.secrets().setJoinSecret(secret);
+		}
+		if ((partyId != null) && (secret != null)) {
+			ActivityPartySize size = activity.party().size();
+			size.setCurrentSize(1);
+			size.setMaxSize(10);
 		}
 		core.activityManager().updateActivity(activity, result -> {
 			switch (result) {
