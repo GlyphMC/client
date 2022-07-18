@@ -9,6 +9,7 @@
   "client": [
     "modules.damagetilt.BobHurtMixin",
     "ui.AbstractWidgetMixin",
+    "ui.DebugScreenOverlayMixin",
     "ui.GuiComponentMixin",
     "ui.MinecraftMixin",
     "ui.TitleScreenMixin"
