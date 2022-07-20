@@ -5,11 +5,8 @@ import de.jcm.discordgamesdk.LobbyManager;
 import de.jcm.discordgamesdk.Result;
 import de.jcm.discordgamesdk.user.DiscordUser;
 import io.github.arctanmc.arctan.ArctanClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import org.json.JSONObject;
+import io.github.arctanmc.arctan.util.API;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +43,7 @@ public class RPCUtils {
 					lobbyManager.getMemberUserIds(lobbyId).forEach(userId -> {
 						String uuid = null;
 						if (cache.getIfPresent(userId) == null) {
-							uuid = getMinecraftUuid(userId);
+							uuid = API.getMinecraftUuid(userId);
 							cache.put(userId, uuid);
 							debug("Cached user " + userId + " with UUID " + uuid);
 						} else {
@@ -72,34 +69,6 @@ public class RPCUtils {
 
 	private static void debug(String message) {
 		ArctanClient.LOGGER.debug(message);
-	}
-
-	/**
-	 * Gets the UUID of a user from our API.
-	 * @param discordId The Discord ID of the user.
-	 * @return The UUID of the user with the given Discord ID, or null if the user is not found.
-	 */
-	private static String getMinecraftUuid(Long discordId) {
-		String uuid = null;
-		Request request = new Request.Builder()
-				.url(String.format("http://localhost:8080/api/v1/discord/%s", discordId)) // TODO: Replace with actual endpoint
-				.build();
-		try (Response response = ArctanClient.HTTP_CLIENT.newCall(request).execute()) {
-			if (response.code() == 200) {
-				String res = response.body().string();
-				JSONObject json = new JSONObject(res);
-				if (discordId == json.getLong("discordId")) {
-					uuid = json.getString("minecraftUuid");
-				} else {
-					error("Unknown discordId " + discordId);
-				}
-			} else {
-				error("Failed to get UUID for Discord ID " + discordId);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return uuid;
 	}
 
 }
