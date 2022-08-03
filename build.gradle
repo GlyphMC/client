@@ -20,6 +20,7 @@ repositories {
 	maven { url = "https://maven.terraformersmc.com/" }
 	maven { url = "https://jitpack.io/" }
 	maven { url = "https://jcenter.bintray.com/" }
+	maven { url = "https://maven.gegy.dev" }
 }
 
 dependencies {
@@ -38,6 +39,8 @@ dependencies {
 	modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}") {
 		transitive(false)
 	}
+
+	include modImplementation("dev.lambdaurora:spruceui:${project.spruceui_version}")
 
 	implementation 'com.github.JnCrMx:discord-game-sdk4j:v0.5.5'
 	implementation "com.kohlschutter.junixsocket:junixsocket-core:2.4.0"

@@ -8,22 +8,15 @@ import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.realmsclient.gui.screens.RealmsNotificationsScreen;
 import io.github.arctanmc.arctan.ArctanClient;
-import io.github.arctanmc.arctan.util.API;
-import net.minecraft.ChatFormatting;
 import net.minecraft.SharedConstants;
-import net.minecraft.Util;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.client.gui.screens.ConfirmScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.PanoramaRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import okhttp3.HttpUrl;
-import okhttp3.Request;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -66,33 +59,6 @@ public abstract class TitleScreenMixin extends Screen {
 			this.realmsNotificationsScreen.init(this.minecraft, this.width, this.height);
 		}
 
-		// Discord
-		String uuid = Minecraft.getInstance().getUser().getUuid().replace("-", "");
-		Long discordId = API.getDiscordId(uuid);
-		if (discordId == null) { // Show screen
-			HttpUrl httpUrl = new HttpUrl.Builder()
-					.scheme("https")
-					.host("discord.com")
-					.addPathSegment("oauth2")
-					.addPathSegment("authorize")
-					.addQueryParameter("response_type", "code")
-					.addQueryParameter("client_id", "947514926589693983")
-					.addQueryParameter("scope", "identify")
-					.addQueryParameter("state", uuid)
-					.addQueryParameter("prompt", "consent")
-					.addQueryParameter("redirect_uri", "http://localhost:8080/api/v1/verify") // TODO CHANGE THIS
-					.build();
-			System.out.println(httpUrl);
-			Minecraft.getInstance().setScreen(new ConfirmScreen(accepted -> {
-				if (accepted) {
-					Util.getPlatform().openUri(String.valueOf(httpUrl));
-				} else {
-					Minecraft.getInstance().stop();
-				}
-			}, Component.literal("You need to be connected to Discord to use this client.").withStyle(ChatFormatting.RED),
-			   Component.literal("Connect to Discord?").withStyle(ChatFormatting.AQUA)
-			));
-		}
 	}
 
 	@Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/PanoramaRenderer;render(FF)V"))

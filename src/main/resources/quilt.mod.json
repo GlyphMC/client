@@ -24,7 +24,10 @@
     },
     "intermediate_mappings": "net.fabricmc:intermediary",
     "entrypoints": {
-      "client_init": "io.github.arctanmc.arctan.ArctanClient"
+      "client_init": "io.github.arctanmc.arctan.ArctanClient",
+      "modmenu": [
+        "io.github.arctanmc.arctan.compat.modmenu.ModMenuIntegration"
+      ]
     },
     "depends": [
       "quilt_loader",
