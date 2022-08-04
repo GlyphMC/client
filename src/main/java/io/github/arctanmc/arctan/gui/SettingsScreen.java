@@ -25,7 +25,7 @@ public class SettingsScreen extends SpruceScreen {
 		super(Component.literal("Arctan Client Settings"));
 		this.parent = parent;
 		this.discordOption = SpruceSimpleActionOption.of("arctan.client.settings.discord", button -> {
-			String uuid = Minecraft.getInstance().player.getStringUUID().replace("-", "");
+			String uuid = Minecraft.getInstance().getUser().getUuid().replace("-", "");
 			HttpUrl url = new HttpUrl.Builder()
 					.scheme("https")
 					.host("discord.com")
