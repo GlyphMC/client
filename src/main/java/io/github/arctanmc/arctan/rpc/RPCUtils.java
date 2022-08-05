@@ -3,14 +3,20 @@ package io.github.arctanmc.arctan.rpc;
 import com.github.benmanes.caffeine.cache.Cache;
 import de.jcm.discordgamesdk.LobbyManager;
 import de.jcm.discordgamesdk.Result;
+import de.jcm.discordgamesdk.activity.Activity;
+import de.jcm.discordgamesdk.activity.ActivityPartySize;
 import de.jcm.discordgamesdk.user.DiscordUser;
 import io.github.arctanmc.arctan.ArctanClient;
 import io.github.arctanmc.arctan.util.API;
+import net.minecraft.SharedConstants;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RPCUtils {
+
+	private static final Instant INSTANT = Instant.now();
 
 	public static class ActivityJoinRequestHandler {
 
@@ -69,6 +75,44 @@ public class RPCUtils {
 
 	private static void debug(String message) {
 		ArctanClient.LOGGER.debug(message);
+	}
+
+	public static void updateActivity(String state, String partyId, String secret) {
+		Activity activity = new Activity();
+		activity.setDetails("Playing Minecraft " + SharedConstants.getCurrentVersion().getName());
+		activity.setState(state);
+		activity.timestamps().setStart(INSTANT);
+		activity.assets().setLargeImage("arctan_client");
+		if (partyId != null) {
+			activity.party().setID(partyId);
+		}
+		if (secret != null) {
+			activity.secrets().setJoinSecret(secret);
+		}
+		if ((partyId != null) && (secret != null)) {
+			ActivityPartySize size = activity.party().size();
+			size.setCurrentSize(1);
+			size.setMaxSize(10);
+		}
+		DiscordRPC.getCore().activityManager().updateActivity(activity, result -> {
+			switch (result) {
+				// TODO handle errors
+				case OK -> {
+					ArctanClient.LOGGER.info("Updated Rich Presence");
+				}
+			}
+		});
+	}
+
+	public enum RPCState {
+		INIT,
+		IN_GAME,
+		MAIN_MENU
+	}
+
+	public enum GameType {
+		SINGLEPLAYER,
+		MULTIPLAYER
 	}
 
 }

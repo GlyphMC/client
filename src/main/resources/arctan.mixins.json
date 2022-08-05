@@ -8,6 +8,8 @@
     "modules.damagetilt.BobHurtMixin",
     "modules.discord.ClientLevelMixin",
     "modules.discord.GameSDKMixin",
+    "modules.discord.ScreenEventsMixin",
+    "modules.discord.ServerLevelMixin",
     "ui.AbstractWidgetMixin",
     "ui.GuiComponentMixin",
     "ui.MinecraftMixin",
