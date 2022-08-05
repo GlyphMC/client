@@ -31,10 +31,14 @@
     },
     "depends": [
       "quilt_loader",
-      "quilted_fabric_api"
+      "quilted_fabric_api",
+      "fabric-language-kotlin"
     ]
   },
   "mixin": [
     "arctan.mixins.json"
-  ]
+  ],
+  "minecraft": {
+    "environment": "client"
+  }
 }
