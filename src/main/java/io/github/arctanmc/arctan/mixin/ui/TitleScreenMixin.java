@@ -28,7 +28,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class TitleScreenMixin extends Screen {
 
 	@Shadow
-	private Screen realmsNotificationsScreen;
+	private RealmsNotificationsScreen realmsNotificationsScreen;
 
 	protected TitleScreenMixin(Component component) {
 		super(component);

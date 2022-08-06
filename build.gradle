@@ -21,6 +21,9 @@ repositories {
 	maven { url = "https://jitpack.io/" }
 	maven { url = "https://jcenter.bintray.com/" }
 	maven { url = "https://maven.gegy.dev" }
+	maven { url = "https://maven.quiltmc.org/repository/release" }
+	maven { url = "https://maven.quiltmc.org/repository/snapshot" }
+	mavenCentral()
 }
 
 dependencies {
