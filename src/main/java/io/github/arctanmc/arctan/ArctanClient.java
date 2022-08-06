@@ -18,7 +18,7 @@ public class ArctanClient implements ClientModInitializer {
 	public void onInitializeClient(ModContainer mod) {
 		LOGGER.info("Initialized");
 		VERSION = mod.metadata().version();
-		DiscordRPC.init();
+		//DiscordRPC.init();
 	}
 
 	public static String getVersion() {

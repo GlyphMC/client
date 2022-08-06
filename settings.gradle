@@ -8,6 +8,10 @@ pluginManagement {
 			name = 'QuiltMC Release'
 			url = "https://maven.quiltmc.org/repository/release"
 		}
+		maven {
+			name = 'QuiltMC Snapshot'
+			url = "https://maven.quiltmc.org/repository/snapshot"
+		}
 		gradlePluginPortal()
 	}
 }

@@ -20,6 +20,9 @@ repositories {
 	maven { url = "https://maven.terraformersmc.com/" }
 	maven { url = "https://jitpack.io/" }
 	maven { url = "https://jcenter.bintray.com/" }
+	maven { url = "https://maven.quiltmc.org/repository/release" }
+	maven { url = "https://maven.quiltmc.org/repository/snapshot" }
+	mavenCentral()
 }
 
 dependencies {
@@ -40,7 +43,7 @@ dependencies {
 	}
 
 	implementation "com.jagrosh:DiscordIPC:0.4"
-	implementation "com.kohlschutter.junixsocket:junixsocket-core:2.4.0"
+	implementation 'com.kohlschutter.junixsocket:junixsocket-core:2.5.1'
 }
 
 loom {
