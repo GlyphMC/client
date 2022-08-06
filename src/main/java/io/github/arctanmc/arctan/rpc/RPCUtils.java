@@ -98,7 +98,7 @@ public class RPCUtils {
 			switch (result) {
 				// TODO handle errors
 				case OK -> {
-					ArctanClient.LOGGER.info("Updated Rich Presence");
+					ArctanClient.LOGGER.info("Updated Rich Presence -> {}", state);
 				}
 			}
 		});
