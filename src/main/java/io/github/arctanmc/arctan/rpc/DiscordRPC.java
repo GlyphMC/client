@@ -1,7 +1,5 @@
 package io.github.arctanmc.arctan.rpc;
 
-import com.github.benmanes.caffeine.cache.Cache;
-import com.github.benmanes.caffeine.cache.Caffeine;
 import de.jcm.discordgamesdk.Core;
 import de.jcm.discordgamesdk.CreateParams;
 import de.jcm.discordgamesdk.DiscordEventAdapter;
@@ -10,16 +8,12 @@ import de.jcm.discordgamesdk.user.Relationship;
 import io.github.arctanmc.arctan.ArctanClient;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 import static io.github.arctanmc.arctan.rpc.RPCUtils.*;
 
 public class DiscordRPC {
 
 	private static Core core;
-	private static final Cache<Long, String> CACHE = Caffeine.newBuilder()
-			.expireAfterWrite(30, TimeUnit.MINUTES)
-			.build();
 
 	public static void init() throws IOException {
 		Core.initDownload();
@@ -30,7 +24,7 @@ public class DiscordRPC {
 			// These are the events that I think we will need to handle.
 			@Override
 			public void onActivityJoin(String secret) {
-				ActivityJoinHandler.handle(CACHE, secret);
+				ActivityJoinHandler.handle(secret);
 			}
 
 			@Override

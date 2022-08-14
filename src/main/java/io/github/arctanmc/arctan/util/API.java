@@ -1,68 +1,106 @@
 package io.github.arctanmc.arctan.util;
 
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
 import io.github.arctanmc.arctan.ArctanClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.jetbrains.annotations.Nullable;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class API {
 
+	public static final String BASE_URL = "http://localhost:8080/api/v1/";
+	public static final Cache<String, User> UUID_CACHE = Caffeine.newBuilder()
+			.expireAfterWrite(30, TimeUnit.MINUTES)
+			.build();
+	public static final Cache<Long, User> ID_CACHE = Caffeine.newBuilder()
+			.expireAfterWrite(30, TimeUnit.MINUTES)
+			.build();
+
 	/**
-	 * Gets the UUID of a user from our API.
-	 * @param discordId The Discord ID of the user.
-	 * @return The UUID of the user with the given Discord ID, or null if the user is not found.
+	 * Gets the user from our API.
+	 *
+	 * @param discordId The Discord ID.
 	 */
-	public static String getMinecraftUuid(Long discordId) {
-		String uuid = null;
+	public static @Nullable User getUserById(Long discordId) {
+		User ifPresent = ID_CACHE.getIfPresent(discordId);
+		if (ifPresent != null) {
+			return ifPresent;
+		}
 		Request request = new Request.Builder()
-				.url(String.format("http://localhost:8080/api/v1/discord/%s", discordId)) // TODO: Replace with actual endpoint
+				.url(BASE_URL + "discord/" + discordId)
 				.build();
+		User user;
 		try (Response response = ArctanClient.HTTP_CLIENT.newCall(request).execute()) {
 			if (response.code() == 200) {
 				String res = response.body().string();
 				JSONObject json = new JSONObject(res);
-				if (discordId == json.getLong("discordId")) {
-					uuid = json.getString("minecraftUuid");
+				JSONObject userObj = json.getJSONObject("user");
+				if (discordId.equals(userObj.getLong("userId"))) {
+					user = new User()
+							.setId(discordId)
+							.setTag(userObj.getString("tag"))
+							.setAvatarUrl(userObj.getString("avatarUrl"));
+					UUID_CACHE.put(json.getString("minecraftUuid"), user);
+					ID_CACHE.put(discordId, user);
 				} else {
 					ArctanClient.LOGGER.error("Unknown discordId " + discordId);
+					return null;
 				}
 			} else {
-				ArctanClient.LOGGER.error("Failed to get UUID for Discord ID " + discordId);
+				ArctanClient.LOGGER.error("Failed to get User info for Discord ID " + discordId);
+				return null;
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			return null;
 		}
-		return uuid;
+		return user;
 	}
 
 	/**
-	 * Gets the Discord ID of a user from our API.
-	 * @param minecraftUuid The Minecraft UUID of the user.
-	 * @return The UUID of the user with the given UUID, or null if the user is not found.
+	 * Gets the user from our API.
+	 * @param uuid The Minecraft UUID.
+	 * @return The user, or null.
 	 */
-	public static Long getDiscordId(String minecraftUuid) {
-		Long discordId = null;
+	public static @Nullable User getUserByUuid(String uuid) {
+		User ifPresent = UUID_CACHE.getIfPresent(uuid);
+		if (ifPresent != null) {
+			return ifPresent;
+		}
 		Request request = new Request.Builder()
-				.url(String.format("http://localhost:8080/api/v1/minecraft/%s", minecraftUuid)) // TODO: Replace with actual endpoint
+				.url(BASE_URL + "minecraft/" + uuid)
 				.build();
+		User user;
 		try (Response response = ArctanClient.HTTP_CLIENT.newCall(request).execute()) {
 			if (response.code() == 200) {
 				String res = response.body().string();
 				JSONObject json = new JSONObject(res);
-				if (minecraftUuid.equals(json.getString("minecraftUuid"))) {
-					discordId = json.getLong("discordId");
+				JSONObject userObj = json.getJSONObject("user");
+				String minecraftUuid = json.getString("minecraftUuid");
+				if (uuid.equals(minecraftUuid)) {
+					user = new User()
+							.setId(userObj.getLong("userId"))
+							.setTag(userObj.getString("tag"))
+							.setAvatarUrl(userObj.getString("avatarUrl"));
+					UUID_CACHE.put(minecraftUuid, user);
+					ID_CACHE.put(userObj.getLong("userId"), user);
 				} else {
-					ArctanClient.LOGGER.error("Unknown minecraftUuid " + minecraftUuid);
+					ArctanClient.LOGGER.error("Unknown uuid " + uuid);
+					return null;
 				}
 			} else {
-				ArctanClient.LOGGER.error("Failed to get Discord ID for Minecraft UUID " + minecraftUuid);
+				ArctanClient.LOGGER.error("Failed to get User info for UUID " + uuid);
+				return null;
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			return null;
 		}
-		return discordId;
+		return user;
 	}
+
 
 }
