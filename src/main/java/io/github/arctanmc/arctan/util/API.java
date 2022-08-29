@@ -41,10 +41,7 @@ public class API {
 				JSONObject json = new JSONObject(res);
 				JSONObject userObj = json.getJSONObject("user");
 				if (discordId.equals(userObj.getLong("userId"))) {
-					user = new User()
-							.setId(discordId)
-							.setTag(userObj.getString("tag"))
-							.setAvatarUrl(userObj.getString("avatarUrl"));
+					user = new User(discordId, userObj.getString("tag"), userObj.getString("avatarUrl"));
 					UUID_CACHE.put(json.getString("minecraftUuid"), user);
 					ID_CACHE.put(discordId, user);
 				} else {
@@ -82,10 +79,7 @@ public class API {
 				JSONObject userObj = json.getJSONObject("user");
 				String minecraftUuid = json.getString("minecraftUuid");
 				if (uuid.equals(minecraftUuid)) {
-					user = new User()
-							.setId(userObj.getLong("userId"))
-							.setTag(userObj.getString("tag"))
-							.setAvatarUrl(userObj.getString("avatarUrl"));
+					user = new User(userObj.getLong("userId"), userObj.getString("tag"), userObj.getString("avatarUrl"));
 					UUID_CACHE.put(minecraftUuid, user);
 					ID_CACHE.put(userObj.getLong("userId"), user);
 				} else {

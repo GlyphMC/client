@@ -51,7 +51,7 @@ public class SettingsScreen extends SpruceScreen {
 		int buttonHeight = 20;
 		User user = API.getUserByUuid(uuid);
 		if (user != null) { // TODO ADD GUI ELEMENTS
-			this.addRenderableWidget(new SpruceLabelWidget(Position.of(this, this.width / 2 - 150, this.height / 2 + buttonHeight), Component.literal(user.getTag()), 300));
+			this.addRenderableWidget(new SpruceLabelWidget(Position.of(this, this.width / 2 - 150, this.height / 2 + buttonHeight), Component.literal(user.tag()), 300));
 		} else {
 			this.addRenderableWidget(this.linkDiscord.createWidget(Position.of(this, this.width / 2 - 75, this.height / 2 - buttonHeight), 150));
 		}

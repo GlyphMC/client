@@ -53,7 +53,7 @@ public class RPCUtils {
 			});
 			// TODO: Handle this in Minecraft.
 			userList.forEach(user -> {
-				log("User " + user.getTag() + " joined from activity with secret " + secret);
+				log("User " + user.tag() + " joined from activity with secret " + secret);
 			});
 		}
 
