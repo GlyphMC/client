@@ -7,8 +7,8 @@ import static io.github.arctanmc.arctan.rpc.RPCUtils.updateActivity;
 public class RPCEvents {
 
 	private static RPCEvents INSTANCE;
-	private RPCUtils.RPCState state = RPCUtils.RPCState.INIT;
-	private RPCUtils.GameType gameType = RPCUtils.GameType.SINGLEPLAYER;
+	private RPCState state = RPCState.INIT;
+	private GameType gameType = GameType.SINGLEPLAYER;
 
 	public RPCEvents() {
 		INSTANCE = this;
@@ -16,23 +16,23 @@ public class RPCEvents {
 	}
 
 	private void initRPC() {
-		this.state = RPCUtils.RPCState.INIT;
+		this.state = RPCState.INIT;
 		updateRPC(0);
 	}
 
 	public void menuRPC() {
-		this.state = RPCUtils.RPCState.MAIN_MENU;
+		this.state = RPCState.MAIN_MENU;
 		updateRPC(0);
 	}
 
-	public void gameRPC(RPCUtils.GameType type) {
-		this.state = RPCUtils.RPCState.IN_GAME;
+	public void gameRPC(GameType type) {
+		this.state = RPCState.IN_GAME;
 		this.gameType = type;
 		updateRPC(0);
 	}
 
-	public void gameRPC(RPCUtils.GameType type, int size) {
-		this.state = RPCUtils.RPCState.IN_GAME;
+	public void gameRPC(GameType type, int size) {
+		this.state = RPCState.IN_GAME;
 		this.gameType = type;
 		updateRPC(size);
 	}

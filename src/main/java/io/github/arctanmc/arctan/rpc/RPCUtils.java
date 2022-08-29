@@ -52,9 +52,7 @@ public class RPCUtils {
 				}
 			});
 			// TODO: Handle this in Minecraft.
-			userList.forEach(user -> {
-				log("User " + user.tag() + " joined from activity with secret " + secret);
-			});
+			userList.forEach(user -> log("User " + user.tag() + " joined from activity with secret " + secret));
 		}
 
 	}
@@ -91,22 +89,9 @@ public class RPCUtils {
 		DiscordRPC.getCore().activityManager().updateActivity(activity, result -> {
 			switch (result) {
 				// TODO handle errors
-				case OK -> {
-					ArctanClient.LOGGER.info("Updated Rich Presence -> {}", state);
-				}
+				case OK -> ArctanClient.LOGGER.info("Updated Rich Presence -> {}", state);
 			}
 		});
-	}
-
-	public enum RPCState {
-		INIT,
-		IN_GAME,
-		MAIN_MENU
-	}
-
-	public enum GameType {
-		SINGLEPLAYER,
-		MULTIPLAYER
 	}
 
 }
