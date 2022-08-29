@@ -39,7 +39,7 @@ public class SettingsScreen extends SpruceScreen {
 					.addQueryParameter("scope", "identify")
 					.addQueryParameter("state", uuid)
 					.addQueryParameter("prompt", "consent")
-					.addQueryParameter("redirect_uri", "http://localhost:8080/api/v1/verify") // TODO CHANGE THIS
+					.addQueryParameter("redirect_uri", "http://localhost:8080/verify") // TODO CHANGE THIS
 					.build();
 			Util.getPlatform().openUri(String.valueOf(url));
 		}, Component.literal("Link to Discord"));
