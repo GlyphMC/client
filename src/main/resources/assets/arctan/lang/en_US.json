@@ -1,3 +1,7 @@
 {
-  "arctan.client.settings.discord": "Link to Discord?"
+  "arctan.client.settings.discord": "Discord Settings",
+  "arctan.client.settings.discord.link": "Link Discord",
+  "arctan.client.settings.title": "Arctan Client Settings",
+  "arctan.client.settings.discord.title": "Discord Link Settings",
+  "arctan.client.settings.discord.link.tooltip": "Link your Discord account to your Minecraft account"
 }
