@@ -16,6 +16,6 @@ jobs:
           distribution: "temurin"
           java-version: ${{ matrix.java }}
           cache: 'gradle'
+      - run: chmod +x gradlew
       - run: ./gradlew checkLicenses --stacktrace
       - run: ./gradlew check build --stacktrace
-        shell: bash
