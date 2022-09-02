@@ -18,3 +18,4 @@ jobs:
           cache: 'gradle'
       - run: ./gradlew checkLicenses --stacktrace
       - run: ./gradlew check build --stacktrace
+        shell: bash
