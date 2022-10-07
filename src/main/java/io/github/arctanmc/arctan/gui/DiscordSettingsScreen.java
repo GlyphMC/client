@@ -10,7 +10,7 @@ import dev.lambdaurora.spruceui.widget.SpruceButtonWidget;
 import dev.lambdaurora.spruceui.widget.SpruceLabelWidget;
 import io.github.arctanmc.arctan.ArctanClient;
 import io.github.arctanmc.arctan.util.API;
-import io.github.arctanmc.arctan.util.User;
+import io.github.arctanmc.arctan.util.Player;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -53,9 +53,9 @@ public class DiscordSettingsScreen extends SpruceScreen {
 		this.addRenderableWidget(new SpruceButtonWidget(Position.of(this, this.width / 2 - 75, this.height - 29), 150, buttonHeight, SpruceTexts.GUI_DONE, button -> {
 			this.minecraft.setScreen(this.parent);
 		}));
-		User user = API.getUserByUuid(uuid);
-		if (user != null) { // TODO ADD GUI ELEMENTS
-			this.addRenderableWidget(new SpruceLabelWidget(Position.of(this, this.width / 2 - 150, this.height / 2 + buttonHeight), Component.literal(user.tag()), 300));
+		Player player = API.getPlayerByUuid(uuid);
+		if (player != null) { // TODO ADD GUI ELEMENTS
+			this.addRenderableWidget(new SpruceLabelWidget(Position.of(this, this.width / 2 - 150, this.height / 2 + buttonHeight), Component.literal(player.discordUser().tag()), 300));
 		} else {
 			this.addRenderableWidget(this.linkToDiscord.createWidget(Position.of(this, this.width / 2 - 75, this.height / 2 - buttonHeight), 150));
 		}
