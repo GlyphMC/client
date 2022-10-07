@@ -7,7 +7,7 @@ import de.jcm.discordgamesdk.activity.ActivityPartySize;
 import de.jcm.discordgamesdk.user.DiscordUser;
 import io.github.arctanmc.arctan.ArctanClient;
 import io.github.arctanmc.arctan.util.API;
-import io.github.arctanmc.arctan.util.User;
+import io.github.arctanmc.arctan.util.Player;
 import net.minecraft.SharedConstants;
 
 import java.time.Instant;
@@ -39,34 +39,26 @@ public class RPCUtils {
 		public static void handle(String secret) {
 			log("Trying to join activity with secret " + secret);
 			LobbyManager lobbyManager = DiscordRPC.getCore().lobbyManager();
-			List<User> userList = new ArrayList<>();
+			List<Player> playerList = new ArrayList<>();
 			lobbyManager.connectLobbyWithActivitySecret(secret, (result, lobby) -> {
 				if (result == Result.OK) {
 					long lobbyId = lobby.getId();
 					log("Joined activity with secret " + secret);
 					log("Lobby ID: " + lobbyId);
 					lobbyManager.getMemberUserIds(lobbyId).forEach(userId -> {
-						User user = API.getUserById(userId);
-						userList.add(user);
+						Player player = API.getPlayerByDiscordId(String.valueOf(userId));
+						playerList.add(player);
 					});
 				}
 			});
 			// TODO: Handle this in Minecraft.
-			userList.forEach(user -> log("User " + user.tag() + " joined from activity with secret " + secret));
+			playerList.forEach(player -> log("Player " + player.discordUser().tag() + " joined from activity with secret " + secret));
 		}
 
 	}
 
 	private static void log(String message) {
 		ArctanClient.LOGGER.info(message);
-	}
-
-	private static void error(String message) {
-		ArctanClient.LOGGER.error(message);
-	}
-
-	private static void debug(String message) {
-		ArctanClient.LOGGER.debug(message);
 	}
 
 	public static void updateActivity(String state, String partyId, String secret) {
