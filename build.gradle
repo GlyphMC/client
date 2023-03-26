@@ -22,6 +22,7 @@ repositories {
 	maven { url = "https://jcenter.bintray.com/" }
 	maven { url = "https://maven.quiltmc.org/repository/release" }
 	maven { url = "https://maven.quiltmc.org/repository/snapshot" }
+	maven { url = "https://maven.gegy.dev"}
 	mavenCentral()
 }
 
@@ -37,13 +38,18 @@ dependencies {
 	modImplementation "org.quiltmc:quilt-loader:${project.loader_version}"
 
 	modImplementation "org.quiltmc.quilted-fabric-api:quilted-fabric-api:${project.qfapi_version}"
+	modImplementation include("dev.lambdaurora:spruceui:${project.spruceui_version}")
 
 	modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}") {
 		transitive(false)
 	}
-
-	implementation "com.jagrosh:DiscordIPC:0.4"
-	implementation 'com.kohlschutter.junixsocket:junixsocket-core:2.5.1'
+	modImplementation("net.fabricmc:fabric-language-kotlin:1.8.2+kotlin.1.7.10") // TODO replace with Quilt Kotlin Libraries
+	implementation include("com.github.JnCrMx:discord-game-sdk4j:v0.5.5")
+	implementation include("com.kohlschutter.junixsocket:junixsocket-core:2.4.0")
+	implementation include("com.squareup.okhttp3:okhttp:4.10.0")
+	implementation include ("com.squareup.okio:okio-jvm:3.2.0")
+	implementation include("com.github.ben-manes.caffeine:caffeine:3.1.1")
+	implementation include("org.json:json:20220320")
 }
 
 loom {

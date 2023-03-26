@@ -54,6 +54,9 @@ public abstract class TitleScreenMixin extends Screen {
 	@Shadow
 	protected abstract boolean realmsNotificationsEnabled();
 
+	@Shadow
+	protected abstract void init();
+
 	@Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/TitleScreen;drawString(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/gui/Font;Ljava/lang/String;III)V", ordinal = 0))
 	private void arctan$changeText(PoseStack poseStack, Font font, String string, int x, int y, int color) {
 		drawString(poseStack, font, "Arctan Client (" + SharedConstants.getCurrentVersion().getName() + ")", x, y, color);
@@ -72,6 +75,7 @@ public abstract class TitleScreenMixin extends Screen {
 		if (this.realmsNotificationsEnabled()) {
 			this.realmsNotificationsScreen.init(this.minecraft, this.width, this.height);
 		}
+
 	}
 
 	@Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/PanoramaRenderer;render(FF)V"))
