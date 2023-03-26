@@ -1,6 +1,6 @@
 //file:noinspection GroovyAssignabilityCheck
 plugins {
-	id 'org.quiltmc.loom' version '0.12.+'
+	id 'org.quiltmc.loom' version '1.0.+'
 	id 'org.quiltmc.gradle.licenser' version '1.+'
 	id 'maven-publish'
 }
@@ -20,28 +20,30 @@ repositories {
 	maven { url = "https://maven.terraformersmc.com/" }
 	maven { url = "https://jitpack.io/" }
 	maven { url = "https://jcenter.bintray.com/" }
-	maven { url = "https://maven.gegy.dev" }
 	maven { url = "https://maven.quiltmc.org/repository/release" }
 	maven { url = "https://maven.quiltmc.org/repository/snapshot" }
+	maven { url = "https://maven.gegy.dev"}
 	mavenCentral()
 }
 
 dependencies {
-	minecraft("com.mojang:minecraft:${project.minecraft_version}")
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings loom.layered {
-		it.addLayer(quiltMappings.mappings("org.quiltmc:quilt-mappings:${minecraft_version}+build.${quilt_mappings_version}:v2"))
+		it.addLayer(quiltMappings.mappings("org.quiltmc:quilt-mappings:${minecraft_version}+build.${quilt_mappings_build}:v2"))
 		it.officialMojangMappings {
 			setNameSyntheticMembers(false)
 		}
 	}
 
-	modImplementation("org.quiltmc:quilt-loader:${project.loader_version}")
-	modImplementation("org.quiltmc.quilted-fabric-api:quilted-fabric-api:${project.qfapi_version}")
+	modImplementation "org.quiltmc:quilt-loader:${project.loader_version}"
+
+	modImplementation "org.quiltmc.quilted-fabric-api:quilted-fabric-api:${project.qfapi_version}"
+	modImplementation include("dev.lambdaurora:spruceui:${project.spruceui_version}")
+
 	modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}") {
 		transitive(false)
 	}
 	modImplementation("net.fabricmc:fabric-language-kotlin:1.8.2+kotlin.1.7.10") // TODO replace with Quilt Kotlin Libraries
-	modImplementation include("dev.lambdaurora:spruceui:${project.spruceui_version}")
 	implementation include("com.github.JnCrMx:discord-game-sdk4j:v0.5.5")
 	implementation include("com.kohlschutter.junixsocket:junixsocket-core:2.4.0")
 	implementation include("com.squareup.okhttp3:okhttp:4.10.0")

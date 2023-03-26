@@ -17,20 +17,24 @@
 
 package io.github.arctanmc.arctan.mixin.ui;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import io.github.arctanmc.arctan.ArctanClient;
-import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.gui.components.DebugScreenOverlay;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(AbstractWidget.class)
-public class AbstractWidgetMixin {
-	private static final ResourceLocation WIDGETS_LOCATION = new ResourceLocation(ArctanClient.MOD_ID, "textures/gui/widgets.png");
+import java.util.List;
 
-	@Redirect(method = "renderButton", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;setShaderTexture(ILnet/minecraft/resources/ResourceLocation;)V"))
-	private void renderImage(int i, ResourceLocation resourceLocation) {
-		RenderSystem.setShaderTexture(0, WIDGETS_LOCATION);
+@Mixin(DebugScreenOverlay.class)
+public class DebugScreenOverlayMixin {
+
+	@Inject(method = "getSystemInformation", at = @At("RETURN"))
+	public void arctan$appendInformation(CallbackInfoReturnable<List<String>> cir) {
+		List<String> strings = cir.getReturnValue();
+		strings.add("");
+		strings.add(String.format("[Arctan] Version: %s", ArctanClient.getVersion()));
+		strings.add("");
 	}
+
 }

@@ -39,8 +39,5 @@
   },
   "mixin": [
     "arctan.mixins.json"
-  ],
-  "minecraft": {
-    "environment": "client"
-  }
+  ]
 }
