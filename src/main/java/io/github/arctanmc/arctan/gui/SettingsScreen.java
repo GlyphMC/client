@@ -1,12 +1,12 @@
 package io.github.arctanmc.arctan.gui;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import dev.lambdaurora.spruceui.Position;
 import dev.lambdaurora.spruceui.SpruceTexts;
 import dev.lambdaurora.spruceui.option.SpruceOption;
 import dev.lambdaurora.spruceui.option.SpruceSimpleActionOption;
 import dev.lambdaurora.spruceui.screen.SpruceScreen;
 import dev.lambdaurora.spruceui.widget.SpruceButtonWidget;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
@@ -39,8 +39,7 @@ public class SettingsScreen extends SpruceScreen {
 	}
 
 	@Override
-	public void renderTitle(PoseStack matrices, int mouseX, int mouseY, float delta) {
-		drawCenteredString(matrices, this.font, this.title, this.width / 2, 8, Color.WHITE.getRGB());
+	public void render(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
+		graphics.drawCenteredString(this.font, this.title, this.width / 2, 8, Color.WHITE.getRGB());
 	}
-
 }

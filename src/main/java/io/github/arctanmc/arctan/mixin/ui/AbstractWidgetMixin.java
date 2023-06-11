@@ -17,6 +17,9 @@
 
 package io.github.arctanmc.arctan.mixin.ui;
 
+// TODO: Fix this mixin
+
+/*
 import com.mojang.blaze3d.systems.RenderSystem;
 import io.github.arctanmc.arctan.ArctanClient;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -34,3 +37,4 @@ public class AbstractWidgetMixin {
 		RenderSystem.setShaderTexture(0, WIDGETS_LOCATION);
 	}
 }
+*/

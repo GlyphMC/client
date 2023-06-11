@@ -15,7 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
 package io.github.arctanmc.arctan.mixin.ui;
+
+/* // TODO: Fix this mixin
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.math.Matrix4f;
@@ -34,3 +37,4 @@ public class GuiComponentMixin {
 		RenderSystem.defaultBlendFunc();
 	}
 }
+*/

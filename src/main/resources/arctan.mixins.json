@@ -9,9 +9,9 @@
     "modules.discord.ClientLevelMixin",
     "modules.discord.GameSDKMixin",
     "modules.discord.ScreenEventsMixin",
-    "ui.AbstractWidgetMixin",
+//    "ui.AbstractWidgetMixin",
     "ui.DebugScreenOverlayMixin",
-    "ui.GuiComponentMixin",
+//    "ui.GuiComponentMixin",
     "ui.MinecraftMixin",
     "ui.TitleScreenMixin"
   ]

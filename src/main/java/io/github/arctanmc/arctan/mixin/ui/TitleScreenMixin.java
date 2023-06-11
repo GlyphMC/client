@@ -27,6 +27,7 @@ import com.mojang.realmsclient.gui.screens.RealmsNotificationsScreen;
 import io.github.arctanmc.arctan.ArctanClient;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
@@ -57,12 +58,13 @@ public abstract class TitleScreenMixin extends Screen {
 	@Shadow
 	protected abstract void init();
 
-	@Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/TitleScreen;drawString(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/gui/Font;Ljava/lang/String;III)V", ordinal = 0))
-	private void arctan$changeText(PoseStack poseStack, Font font, String string, int x, int y, int color) {
-		drawString(poseStack, font, "Arctan Client (" + SharedConstants.getCurrentVersion().getName() + ")", x, y, color);
+	@Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;drawString(Lnet/minecraft/client/gui/Font;Ljava/lang/String;III)I"))
+	private int arctan$changeText(GuiGraphics graphics, Font font, String text, int x, int y, int color) {
+		graphics.drawString(font, "Arctan Client (" + SharedConstants.getCurrentVersion().getName() + ")", x, y, color);
+		return x; // ????
 	}
 
-	@Inject(method = "init", at = @At(value = "FIELD", target = "Lnet/minecraft/client/gui/screens/TitleScreen;ACCESSIBILITY_TEXTURE:Lnet/minecraft/resources/ResourceLocation;"), cancellable = true)
+	@Inject(method = "init", at = @At(value = "FIELD", target = "Lnet/minecraft/client/gui/components/Button;ACCESSIBILITY_TEXTURE:Lnet/minecraft/resources/ResourceLocation;"), cancellable = true)
 	private void stopAccessibility(CallbackInfo ci) {
 		ci.cancel();
 

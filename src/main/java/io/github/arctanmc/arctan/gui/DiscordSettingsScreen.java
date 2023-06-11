@@ -1,6 +1,5 @@
 package io.github.arctanmc.arctan.gui;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import dev.lambdaurora.spruceui.Position;
 import dev.lambdaurora.spruceui.SpruceTexts;
 import dev.lambdaurora.spruceui.option.SpruceOption;
@@ -13,6 +12,7 @@ import io.github.arctanmc.arctan.util.API;
 import io.github.arctanmc.arctan.util.Player;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import okhttp3.HttpUrl;
@@ -67,8 +67,7 @@ public class DiscordSettingsScreen extends SpruceScreen {
 	}
 
 	@Override
-	public void renderTitle(PoseStack matrices, int mouseX, int mouseY, float delta) {
-		drawCenteredString(matrices, this.font, this.title, this.width / 2, 8, Color.WHITE.getRGB());
+	public void renderTitle(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
+		graphics.drawCenteredString(this.font, this.title, this.width / 2, 8, Color.WHITE.getRGB());
 	}
-
 }
