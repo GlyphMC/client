@@ -18,23 +18,19 @@
 
 package io.github.arctanmc.arctan.mixin.ui;
 
-/* // TODO: Fix this mixin
-
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.math.Matrix4f;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(GuiComponent.class)
+@Mixin(GuiGraphics.class)
 public class GuiComponentMixin {
-
-	@Inject(method = "innerBlit(Lcom/mojang/math/Matrix4f;IIIIIFFFF)V", at = @At("HEAD"))
-	private static void drawTexturedQuad(Matrix4f matrix, int x1, int x2, int y1, int y2, int blitOffset, float minU, float maxU, float minV, float maxV, CallbackInfo ci) {
+	@Inject(method = "innerBlit(Lnet/minecraft/resources/ResourceLocation;IIIIIFFFF)V", at = @At("HEAD"))
+	private void drawTexturedQuad(ResourceLocation texture, int x1, int x2, int y1, int y2, int z, float u1, float u2, float v1, float v2, CallbackInfo ci) {
 		RenderSystem.enableBlend();
-		RenderSystem.defaultBlendFunc();
 	}
+
 }
-*/

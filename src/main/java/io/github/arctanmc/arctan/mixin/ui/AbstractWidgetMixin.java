@@ -17,24 +17,20 @@
 
 package io.github.arctanmc.arctan.mixin.ui;
 
-// TODO: Fix this mixin
-
-/*
-import com.mojang.blaze3d.systems.RenderSystem;
 import io.github.arctanmc.arctan.ArctanClient;
-import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(AbstractWidget.class)
+@Mixin(AbstractButton.class)
 public class AbstractWidgetMixin {
-	private static final ResourceLocation WIDGETS_LOCATION = new ResourceLocation(ArctanClient.MOD_ID, "textures/gui/widgets.png");
-
-	@Redirect(method = "renderButton", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;setShaderTexture(ILnet/minecraft/resources/ResourceLocation;)V"))
-	private void renderImage(int i, ResourceLocation resourceLocation) {
-		RenderSystem.setShaderTexture(0, WIDGETS_LOCATION);
+	@Unique
+	private static final ResourceLocation GLYPH_WIDGETS_LOCATION = new ResourceLocation(ArctanClient.MOD_ID, "textures/gui/widgets.png");
+	@Redirect(method = "renderWidget", at = @At(value = "FIELD", target = "Lnet/minecraft/client/gui/components/AbstractButton;WIDGETS_LOCATION:Lnet/minecraft/resources/ResourceLocation;"))
+	private ResourceLocation renderImage() {
+		return GLYPH_WIDGETS_LOCATION;
 	}
 }
-*/
