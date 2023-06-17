@@ -19,14 +19,11 @@ package io.github.glyphmc.glyph.rpc;
 
 import de.jcm.discordgamesdk.Core;
 import de.jcm.discordgamesdk.CreateParams;
-import de.jcm.discordgamesdk.DiscordEventAdapter;
-import de.jcm.discordgamesdk.user.DiscordUser;
-import de.jcm.discordgamesdk.user.Relationship;
 import io.github.glyphmc.glyph.GlyphClient;
 
 import java.io.IOException;
 
-import static io.github.glyphmc.glyph.rpc.RPCUtils.*;
+import static io.github.glyphmc.glyph.rpc.RPCUtils.updateActivity;
 
 public class DiscordRPC {
 
