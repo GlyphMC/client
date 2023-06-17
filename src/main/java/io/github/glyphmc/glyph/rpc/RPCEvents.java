@@ -17,8 +17,6 @@
 
 package io.github.glyphmc.glyph.rpc;
 
-import java.util.UUID;
-
 import static io.github.glyphmc.glyph.rpc.RPCUtils.updateActivity;
 
 public class RPCEvents {
@@ -56,23 +54,19 @@ public class RPCEvents {
 
 	private void updateRPC(int size) {
 		switch (state) {
-			case INIT -> updateActivity("Loading...", null, null);
-			case MAIN_MENU -> updateActivity("In the Menu", null, null);
+			case INIT -> updateActivity("Loading...");
+			case MAIN_MENU -> updateActivity("In the Menu");
 			case IN_GAME -> {
 				switch (gameType) {
 					case SINGLEPLAYER -> {
-						String partyId = UUID.randomUUID().toString();
-						String secret = UUID.randomUUID().toString();
-						updateActivity("Singleplayer", partyId, secret);
+						updateActivity("Singleplayer");
 					}
 					case MULTIPLAYER -> {
-						String partyId = UUID.randomUUID().toString();
-						String secret = UUID.randomUUID().toString();
 						String state = "Multiplayer";
 						if (size != 0) {
 							state += " (" + size + " players)";
 						}
-						updateActivity(state, partyId, secret);
+						updateActivity(state);
 					}
 				}
 			}

@@ -37,43 +37,6 @@ public class DiscordRPC {
 		CreateParams params = new CreateParams();
 		params.setClientID(GlyphClient.CLIENT_ID);
 		params.setFlags(CreateParams.getDefaultFlags());
-		params.registerEventHandler(new DiscordEventAdapter() {
-			// These are the events that I think we will need to handle.
-			@Override
-			public void onActivityJoin(String secret) {
-				ActivityJoinHandler.handle(secret);
-			}
-
-			@Override
-			public void onActivityJoinRequest(DiscordUser user) {
-				ActivityJoinRequestHandler.handle(user);
-			}
-
-			@Override
-			public void onRelationshipRefresh() {
-				super.onRelationshipRefresh();
-			}
-
-			@Override
-			public void onRelationshipUpdate(Relationship relationship) {
-				super.onRelationshipUpdate(relationship);
-			}
-
-			@Override
-			public void onLobbyUpdate(long lobbyId) {
-				super.onLobbyUpdate(lobbyId);
-			}
-
-			@Override
-			public void onMemberConnect(long lobbyId, long userId) {
-				super.onMemberConnect(lobbyId, userId);
-			}
-
-			@Override
-			public void onMemberDisconnect(long lobbyId, long userId) {
-				super.onMemberDisconnect(lobbyId, userId);
-			}
-		});
 		try {
 			core = new Core(params);
 			GlyphClient.LOGGER.info("Initialized Rich Presence");
@@ -81,7 +44,7 @@ public class DiscordRPC {
 		} catch (Exception e) {
 			GlyphClient.LOGGER.error("Failed to initialize Rich Presence", e);
 		}
-		updateActivity("In the Menu", null, null);
+		updateActivity("In the Menu");
 	}
 
 	public static Core getCore() {
