@@ -28,12 +28,6 @@ repositories {
 
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	/*mappings loom.layered {
-		it.addLayer(quiltMappings.mappings("org.quiltmc:quilt-mappings:${minecraft_version}+build.${quilt_mappings_build}:v2"))
-		it.officialMojangMappings {
-			setNameSyntheticMembers(false)
-		}
-	}*/
 
 	mappings loom.layered {
 		mappings "org.quiltmc:quilt-mappings:${minecraft_version}+build.${quilt_mappings_build}:intermediary-v2"

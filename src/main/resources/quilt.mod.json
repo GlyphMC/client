@@ -1,34 +1,33 @@
 {
   "schema_version": 1,
   "quilt_loader": {
-    "group": "io.github.arctanmc",
-    "id": "arctan",
+    "group": "io.github.glyphmc",
+    "id": "glyph",
     "version": "${version}",
     "metadata": {
-      "name": "Arctan",
+      "name": "Glyph",
       "description": "[Redacted]",
       "contributors": {
-        "ArctanMC": "Owner",
+        "GlyphMC": "Owner",
         "IMS212": "Contributor",
         "NoComment1105": "Contributor",
         "Maximum": "Contributor",
         "CarbonGhost": "Contributor",
-        "foxes": "Contributor",
         "chalkyjeans": "Contributor"
       },
       "contact": {
-        "homepage": "https://github.com/ArctanMC/Arctan",
-        "issues": "https://github.com/ArctanMC/Arctan/issues",
-        "sources": "https://github.com/ArctanMC/Arctan/"
+        "homepage": "https://github.com/GlyphMC/client",
+        "issues": "https://github.com/GlyphMC/client/issues",
+        "sources": "https://github.com/GlyphMC/client/"
       },
       "license": "LGPL-3.0",
-      "icon": "assets/arctan/icon.png"
+      "icon": "assets/glyph/icon.png"
     },
     "intermediate_mappings": "net.fabricmc:intermediary",
     "entrypoints": {
-      "client_init": "io.github.arctanmc.arctan.ArctanClient",
+      "client_init": "io.github.glyphmc.glyph.GlyphClient",
       "modmenu": [
-        "io.github.arctanmc.arctan.compat.modmenu.ModMenuIntegration"
+        "io.github.glyphmc.glyph.compat.modmenu.ModMenuIntegration"
       ]
     },
     "depends": [
@@ -38,6 +37,6 @@
     ]
   },
   "mixin": [
-    "arctan.mixins.json"
+    "glyph.mixins.json"
   ]
 }
