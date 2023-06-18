@@ -40,7 +40,9 @@ dependencies {
 
 	modImplementation "org.quiltmc:qsl:${project.qsl_version}+${project.minecraft_version}"
 	modImplementation "org.quiltmc.quilted-fabric-api:quilted-fabric-api:${project.qfapi_version}-${minecraft_version}"
-	modImplementation include("dev.lambdaurora:spruceui:${project.spruceui_version}")
+	modImplementation include("dev.lambdaurora:spruceui:${project.spruceui_version}") {
+		transitive(false)
+	}
 
 	modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}") {
 		transitive(false)
