@@ -20,11 +20,13 @@ package io.github.glyphmc.glyph.mixin.ui;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.realmsclient.gui.screens.RealmsNotificationsScreen;
+import dev.lambdaurora.spruceui.Position;
+import dev.lambdaurora.spruceui.widget.SpruceButtonWidget;
 import io.github.glyphmc.glyph.GlyphClient;
+import io.github.glyphmc.glyph.gui.FriendsScreen;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -57,6 +59,9 @@ public abstract class TitleScreenMixin extends Screen {
 
 	@Shadow
 	protected abstract void init();
+
+	@Shadow
+	public abstract void render(GuiGraphics graphics, int mouseX, int mouseY, float delta);
 
 	@Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;drawString(Lnet/minecraft/client/gui/Font;Ljava/lang/String;III)I"))
 	private int glyph$changeText(GuiGraphics graphics, Font font, String text, int x, int y, int color) {
@@ -102,8 +107,12 @@ public abstract class TitleScreenMixin extends Screen {
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 	}
 
-	@Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/TitleScreen;blit(Lcom/mojang/blaze3d/vertex/PoseStack;IIIIFFIIII)V"))
-	private void dontBlit(PoseStack poseStack, int i, int j, int k, int l, float m, float n, int o, int p, int q, int r) {
-
+	@Inject(method = "init", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/TitleScreen;addRenderableWidget(Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;"))
+	private void init(CallbackInfo ci) {
+		this.addRenderableWidget(new SpruceButtonWidget(Position.of((this.width / 6) - 20, this.height / 3), 50, 20, Component.literal("Friends"),
+			btn -> this.minecraft.setScreen(new FriendsScreen(this))).asVanilla());
 	}
+
+	@Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blit(Lnet/minecraft/resources/ResourceLocation;IIIIFFIIII)V"))
+	private void dontBlit(GuiGraphics instance, ResourceLocation texture, int x, int y, int width, int height, float u, float v, int regionWidth, int regionHeight, int textureWidth, int textureHeight) {}
 }
