@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2023 GlyphMC
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package io.github.glyphmc.glyph.gui;
 
 import dev.lambdaurora.spruceui.Position;
@@ -6,7 +23,9 @@ import dev.lambdaurora.spruceui.screen.SpruceScreen;
 import dev.lambdaurora.spruceui.widget.SpruceButtonWidget;
 import dev.lambdaurora.spruceui.widget.text.SpruceTextFieldWidget;
 import io.github.glyphmc.glyph.util.API;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.toasts.SystemToast;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
@@ -38,7 +57,9 @@ public class FriendsScreen extends SpruceScreen {
 			200, 20, Component.literal("Add Friend"), b -> {
 				API.addFriend(input.get());
 				widget.setText("");
-				// TODO: send toast
+				SystemToast toast = SystemToast.multiline(this.minecraft, SystemToast.SystemToastIds.PERIODIC_NOTIFICATION,
+					Component.literal("Added Friend"), Component.literal("Added " + input.get() + " to your friends list."));
+				Minecraft.getInstance().getToasts().addToast(toast);
 			});
 		this.addRenderableWidget(button);
 
