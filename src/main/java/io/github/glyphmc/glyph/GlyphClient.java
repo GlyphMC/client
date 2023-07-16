@@ -36,13 +36,14 @@ public class GlyphClient implements ClientModInitializer {
 	public static final Long CLIENT_ID = 947514926589693983L;
 	private static Version VERSION;
 	public static final Logger LOGGER = LogManager.getLogger("GlyphClient");
-	public static final OkHttpClient HTTP_CLIENT = new OkHttpClient();
+	public static final OkHttpClient OKHTTP = new OkHttpClient();
 	public static final GlyphConfig CONFIG = QuiltConfig.create("glyph", "config", GlyphConfig.class);
 
 	@Override
 	public void onInitializeClient(ModContainer mod) {
 		LOGGER.info("Initialized");
 		VERSION = mod.metadata().version();
+		FriendsSystem friendsSystem = new FriendsSystem();
 		try {
 			if (CONFIG.general.discordRPC) {
 				DiscordRPC.init();
