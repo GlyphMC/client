@@ -32,7 +32,7 @@ public class RPCUtils {
 		activity.setDetails("Playing Minecraft " + SharedConstants.getCurrentVersion().getName());
 		activity.setState(state);
 		activity.timestamps().setStart(INSTANT);
-		activity.assets().setLargeImage("glyph_client");
+		activity.assets().setLargeImage("glyph");
 		DiscordRPC.getCore().activityManager().updateActivity(activity, result -> {
 			switch (result) {
 				// TODO handle errors
