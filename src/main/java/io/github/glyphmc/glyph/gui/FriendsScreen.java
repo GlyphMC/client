@@ -55,12 +55,12 @@ public class FriendsScreen extends SpruceScreen {
 		SpruceButtonWidget button = new SpruceButtonWidget(
 			Position.of(this, this.width / 2 - 100, this.height / 2 + 20),
 			200, 20, Component.literal("Add Friend"), b -> {
-				API.addFriend(input.get());
-				widget.setText("");
-				SystemToast toast = SystemToast.multiline(this.minecraft, SystemToast.SystemToastIds.PERIODIC_NOTIFICATION,
+			widget.setText("");
+			SystemToast toast = SystemToast.multiline(this.minecraft, SystemToast.SystemToastIds.PERIODIC_NOTIFICATION,
 					Component.literal("Added Friend"), Component.literal("Added " + input.get() + " to your friends list."));
-				Minecraft.getInstance().getToasts().addToast(toast);
-			});
+			Minecraft.getInstance().getToasts().addToast(toast);
+			API.addFriend(input.get());
+		});
 		this.addRenderableWidget(button);
 
 		this.addRenderableWidget(new SpruceButtonWidget(

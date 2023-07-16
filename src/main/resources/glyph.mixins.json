@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [],
   "client": [
+    "keystrokes.KeystrokesMixin",
     "modules.damagetilt.BobHurtMixin",
     "modules.discord.ClientLevelMixin",
     "modules.discord.GameSDKMixin",

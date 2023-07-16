@@ -17,6 +17,7 @@
 
 package io.github.glyphmc.glyph;
 
+import io.github.glyphmc.glyph.config.GlyphConfig;
 import io.github.glyphmc.glyph.rpc.DiscordRPC;
 import net.minecraft.ChatFormatting;
 import okhttp3.OkHttpClient;
@@ -24,6 +25,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.loader.api.Version;
+import org.quiltmc.loader.api.config.QuiltConfig;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
 
 import java.io.IOException;
@@ -35,13 +37,16 @@ public class GlyphClient implements ClientModInitializer {
 	private static Version VERSION;
 	public static final Logger LOGGER = LogManager.getLogger("GlyphClient");
 	public static final OkHttpClient HTTP_CLIENT = new OkHttpClient();
+	public static final GlyphConfig CONFIG = QuiltConfig.create("glyph", "config", GlyphConfig.class);
 
 	@Override
 	public void onInitializeClient(ModContainer mod) {
 		LOGGER.info("Initialized");
 		VERSION = mod.metadata().version();
 		try {
-			DiscordRPC.init();
+			if (CONFIG.general.discordRPC) {
+				DiscordRPC.init();
+			}
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
