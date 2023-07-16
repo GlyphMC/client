@@ -6,6 +6,7 @@
   "mixins": [],
   "client": [
     "keystrokes.KeystrokesMixin",
+    "friends.MinecraftMixin",
     "modules.damagetilt.BobHurtMixin",
     "modules.discord.ClientLevelMixin",
     "modules.discord.GameSDKMixin",
